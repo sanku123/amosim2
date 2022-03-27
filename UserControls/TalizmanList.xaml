@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="AmoSim2.UserControls.TalizmanList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AmoSim2.UserControls"
+             mc:Ignorable="d" 
+           >
+  <UserControl.Resources>
+    <Style TargetType="ListBoxItem">
+      <Setter Property="Height" Value="30" />
+
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ListBoxItem">
+            <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" Name="Bd" SnapsToDevicePixels="True">
+              <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="Selector.IsSelectionActive" Value="False" />
+                  <Condition Property="Selector.IsSelected" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Panel.Background" TargetName="Bd" Value="Transparent" />
+                <Setter Property="Border.BorderBrush" TargetName="Bd">
+                  <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.1" />
+                  </Setter.Value>
+                </Setter>
+              </MultiTrigger>
+              <MultiTrigger>
+                <MultiTrigger.Conditions>
+                  <Condition Property="Selector.IsSelectionActive" Value="True" />
+                  <Condition Property="Selector.IsSelected" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Panel.Background" TargetName="Bd" Value="Transparent" />
+                <Setter Property="Border.BorderBrush" TargetName="Bd">
+                  <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.1" />
+                  </Setter.Value>
+                </Setter>
+              </MultiTrigger>
+              <Trigger Property="UIElement.IsMouseOver" Value="True">
+                <Setter Property="Panel.Background" TargetName="Bd">
+                  <Setter.Value>
+                    <SolidColorBrush Color="White" Opacity="0.15" />
+                  </Setter.Value>
+                </Setter>
+                <Setter Property="Border.BorderBrush" TargetName="Bd">
+                  <Setter.Value>
+                    <SolidColorBrush Color="#A8FFFFFF" Opacity="0.1" />
+                  </Setter.Value>
+                </Setter>
+              </Trigger>
+              <Trigger Property="UIElement.IsEnabled" Value="False">
+                <Setter Property="TextElement.Foreground" TargetName="Bd">
+                  <Setter.Value>
+                    <DynamicResource ResourceKey="{x:Static SystemColors.GrayTextBrushKey}" />
+                  </Setter.Value>
+                </Setter>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </UserControl.Resources>
+  <Grid>
+    <StackPanel Orientation="Horizontal" >
+      <Border Style="{StaticResource Card}" Width="145" >
+        <StackPanel Orientation="Vertical">
+          <Label Content="Talizman nr.1" Style="{StaticResource CardLabel}"></Label>
+          <ListBox x:Name="TalismanLB1" HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionChanged="Talizmany_SelectionChanged" Background="{x:Null}" Foreground="White" VerticalContentAlignment="Center" Padding="6,0,0,0">
+            <ListBoxItem Content="Siła" />
+            <ListBoxItem Content="Wytrzymałość" />
+            <ListBoxItem Content="Zręczność" />
+            <ListBoxItem Content="Szybkość" />
+          </ListBox>
+        </StackPanel>
+      </Border>
+
+      <Border Style="{StaticResource Card}" Width="145">
+        <StackPanel Orientation="Vertical">
+          <Label Content="Talizman nr.2" Style="{StaticResource CardLabel}"></Label>
+          <ListBox x:Name="TalismanLB2" HorizontalAlignment="Left" VerticalAlignment="Top"  SelectionChanged="Talizmany_SelectionChanged" Background="{x:Null}" Foreground="White" VerticalContentAlignment="Center" Padding="6,0,0,0">
+            <ListBoxItem Content="Siła" />
+            <ListBoxItem Content="Wytrzymałość" />
+            <ListBoxItem Content="Zręczność" />
+            <ListBoxItem Content="Szybkość" />
+          </ListBox>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+  </Grid>
+</UserControl>

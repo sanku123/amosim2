@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="AmoSim2.UserControls.BasicStats" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dt="clr-namespace:AmoSim2" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:uc="clr-namespace:AmoSim2.UserControls" xmlns:vm="clr-namespace:AmoSim2.ViewModel" xmlns:vm1="clr-namespace:AmoSim2.Player" mc:Ignorable="d">
+
+  <StackPanel>
+
+    <Border Style="{StaticResource Card}">
+      <Grid>
+        <StackPanel Orientation="Vertical">
+          <Label Content="Postać" Style="{StaticResource CardLabel}" />
+          <UniformGrid Columns="2">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/exp1.png" Label="Build" Text="{Binding Nickname, Mode=OneWay}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/level_m.png" Label="Level" Text="{Binding Level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zdrowie.png" Label="HP" Text="{Binding HP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/mana.png" Label="MP" Text="{Binding MP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+          </UniformGrid>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Border Style="{StaticResource Card}">
+      <Grid>
+        <StackPanel Orientation="Vertical">
+          <Label Content="Statystyki" Style="{StaticResource CardLabel}" />
+          <UniformGrid Columns="2">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zrecznosc.png" Label="Zręczność" Text="{Binding Agility, Mode=OneWay}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila.png" Label="Siła" Text="{Binding Strength, Mode=OneWay}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/szyb.png" Label="Szybkość" Text="{Binding Speed, Mode=OneWay}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/wytrz.png" Label="Wytrzymałość" Text="{Binding Toughness, Mode=OneWay}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/inteli.png" Label="Inteligencja" Text="{Binding Inteligence, Mode=OneWay}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila_woli.png" Label="Siła Woli" Text="{Binding WillPower, Mode=OneWay}" />
+          </UniformGrid>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Border Style="{StaticResource Card}">
+      <Grid>
+        <StackPanel Orientation="Vertical">
+          <Label Content="Dodatkowe" Style="{StaticResource CardLabel}" />
+          <UniformGrid Columns="2">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/walkabronia.png" Label="WB/RC/ST" Text="{Binding CombatSkill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/unik.png" Label="Uniki" Text="{Binding EvasionSkill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/wampiryzm.png" Label="Wampiryzm" Text="{Binding Vampirism, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zrecznosc.png" Label="Złodziejstwo" Text="{Binding Robbery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+          </UniformGrid>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Border Style="{StaticResource Card}">
+      <Grid>
+        <StackPanel Orientation="Vertical">
+          <Label Content="Ekwipunek" Style="{StaticResource CardLabel}" />
+          <UniformGrid Columns="2">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila.png" Label="Atak broni" Text="{Binding WeaponDMG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zduniku.png" Label="Unik Nagole" Text="{Binding EvasionLegs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zduniku.png" Label="Unik Zbroja" Text="{Binding EvasionArmor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/obrona.png" Label="Obrona z EQ" Text="{Binding EQdefence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+          </UniformGrid>
+        </StackPanel>
+      </Grid>
+    </Border>
+  </StackPanel>
+</UserControl>

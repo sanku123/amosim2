@@ -1,0 +1,33 @@
+﻿<UserControl
+  x:Class="AmoSim2.UserControls.CalculatedStats"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:VM="clr-namespace:AmoSim2.Player"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:AmoSim2.UserControls"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:uc="clr-namespace:AmoSim2.UserControls"
+  mc:Ignorable="d">
+
+
+  <Border Style="{StaticResource Card}">
+    <Border.Background>
+      <SolidColorBrush Color="White" Opacity="0.1" />
+    </Border.Background>
+    <Grid>
+      <StackPanel Orientation="Vertical">
+        <Label Content="Główne atrybuty" Style="{StaticResource CardLabel}"></Label>
+        <UniformGrid Columns="3">
+          <uc:LabelTextBox ImgSource="pack://application:,,,/img/trafienie.png" Label="Trafienie" Text="{Binding HitAbility, Mode=OneWay}" />
+          <uc:LabelTextBox ImgSource="pack://application:,,,/img/zduniku.png" Label="Zdolność uniku" Text="{Binding EvasionFull, Mode=OneWay}" />
+          <uc:LabelTextBox ImgSource="pack://application:,,,/img/silaataku.png" Label="Siła ataku" Text="{Binding Attack, Mode=OneWay}" />
+          <uc:LabelTextBox ImgSource="pack://application:,,,/img/obrona.png" Label="Obrona" Text="{Binding Defence, Mode=OneWay}" />
+          <uc:LabelTextBox ImgSource="pack://application:,,,/img/battlespeed.png" Label="Szybkość (W.)" Text="{Binding BattleSpeed, Mode=OneWay}" />
+
+          <uc:LabelTextBox ImgSource="pack://application:,,,/img/critical.png" Label="Tr. krytyczne" Text="{Binding CritChance, Mode=OneWay}" />
+        </UniformGrid>
+      </StackPanel>
+      
+    </Grid>
+  </Border>
+</UserControl>

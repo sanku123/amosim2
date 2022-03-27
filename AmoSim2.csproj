@@ -1,0 +1,133 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net4.6-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\alchemia.png" />
+    <None Remove="img\ap.png" />
+    <None Remove="img\battlespeed.png" />
+    <None Remove="img\bilety.png" />
+    <None Remove="img\critical.png" />
+    <None Remove="img\dowodzenie.png" />
+    <None Remove="img\drwalnictwo.png" />
+    <None Remove="img\energia.png" />
+    <None Remove="img\exp1.png" />
+    <None Remove="img\gornictwo.png" />
+    <None Remove="img\hodowla.png" />
+    <None Remove="img\hutnictwo.png" />
+    <None Remove="img\info.png" />
+    <None Remove="img\inteli.png" />
+    <None Remove="img\iterations.png" />
+    <None Remove="img\klepsydra.png" />
+    <None Remove="img\kowalstwo1.png" />
+    <None Remove="img\level_m.png" />
+    <None Remove="img\mana.png" />
+    <None Remove="img\maxplayers.png" />
+    <None Remove="img\Mithril.png" />
+    <None Remove="img\obrona.png" />
+    <None Remove="img\punkty.png" />
+    <None Remove="img\rzucanieczarow.png" />
+    <None Remove="img\sila.png" />
+    <None Remove="img\silaataku.png" />
+    <None Remove="img\sila_woli.png" />
+    <None Remove="img\stolarstwo.png" />
+    <None Remove="img\strzelectwo.png" />
+    <None Remove="img\szyb.png" />
+    <None Remove="img\trafienie.png" />
+    <None Remove="img\unik.png" />
+    <None Remove="img\walkabronia.png" />
+    <None Remove="img\walki.png" />
+    <None Remove="img\wampiryzm.png" />
+    <None Remove="img\wbanku.png" />
+    <None Remove="img\wiara.png" />
+    <None Remove="img\wytrz.png" />
+    <None Remove="img\zagarek.png" />
+    <None Remove="img\zdrowie.png" />
+    <None Remove="img\zduniku.png" />
+    <None Remove="img\zielarstwo.png" />
+    <None Remove="img\zloto.png" />
+    <None Remove="img\znaki.png" />
+    <None Remove="img\zrecznosc.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
+    <PackageReference Include="Fody" Version="6.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.4" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Prism">
+      <HintPath>..\..\..\Desktop\WPF-Masonry-master\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\..\..\Desktop\WPF-Masonry-master\packages\Prism.Wpf.6.1.0\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\alchemia.png" />
+    <Resource Include="img\ap.png" />
+    <Resource Include="img\battlespeed.png" />
+    <Resource Include="img\bilety.png" />
+    <Resource Include="img\critical.png" />
+    <Resource Include="img\dowodzenie.png" />
+    <Resource Include="img\drwalnictwo.png" />
+    <Resource Include="img\energia.png" />
+    <Resource Include="img\exp1.png" />
+    <Resource Include="img\gornictwo.png" />
+    <Resource Include="img\hodowla.png" />
+    <Resource Include="img\hutnictwo.png" />
+    <Resource Include="img\info.png" />
+    <Resource Include="img\inteli.png" />
+    <Resource Include="img\iterations.png" />
+    <Resource Include="img\klepsydra.png" />
+    <Resource Include="img\kowalstwo1.png" />
+    <Resource Include="img\level_m.png" />
+    <Resource Include="img\mana.png" />
+    <Resource Include="img\maxplayers.png" />
+    <Resource Include="img\Mithril.png" />
+    <Resource Include="img\obrona.png" />
+    <Resource Include="img\punkty.png" />
+    <Resource Include="img\rzucanieczarow.png" />
+    <Resource Include="img\sila.png" />
+    <Resource Include="img\silaataku.png" />
+    <Resource Include="img\sila_woli.png" />
+    <Resource Include="img\stolarstwo.png" />
+    <Resource Include="img\strzelectwo.png" />
+    <Resource Include="img\szyb.png" />
+    <Resource Include="img\trafienie.png" />
+    <Resource Include="img\unik.png" />
+    <Resource Include="img\walkabronia.png" />
+    <Resource Include="img\walki.png" />
+    <Resource Include="img\wampiryzm.png" />
+    <Resource Include="img\wbanku.png" />
+    <Resource Include="img\wiara.png" />
+    <Resource Include="img\wytrz.png" />
+    <Resource Include="img\zagarek.png" />
+    <Resource Include="img\zdrowie.png" />
+    <Resource Include="img\zduniku.png" />
+    <Resource Include="img\zielarstwo.png" />
+    <Resource Include="img\zloto.png" />
+    <Resource Include="img\znaki.png" />
+    <Resource Include="img\zrecznosc.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Menu\" />
+  </ItemGroup>
+
+</Project>
