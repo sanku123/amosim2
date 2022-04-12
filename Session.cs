@@ -1,5 +1,4 @@
-﻿using AmoSim2.Battle;
-using AmoSim2.Player;
+﻿using AmoSim2.Player;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
@@ -11,42 +10,25 @@ namespace AmoSim2
     {
         public static string FILE_PATH = AppDomain.CurrentDomain.BaseDirectory + "Player_Data.json";
 
-        public static void SavePlayerData(PlayerModel obj)
+        public static void SavePlayerData(string path, Model obj)
         {
-            File.WriteAllText(@FILE_PATH, JsonConvert.SerializeObject(obj));
+            string json = JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            File.WriteAllText(path, json);
         }
 
-        public static PlayerModel LoadPlayerData(PlayerModel obj)
+        public static Model LoadPlayerData(string path, Model obj)
         {
-            if (new FileInfo(FILE_PATH).Length != 0)
+            if (new FileInfo(path).Length != 0)
             {
-                string json = File.ReadAllText(@FILE_PATH);
+                string json = File.ReadAllText(path);
                 JsonConvert.PopulateObject(json, obj);
                 return obj;
             }
             return obj;
-        }
-
-        public static void SaveBattleData(ObservableCollection<BattleResults> obj)
-        {
-            string FILE_PATH = AppDomain.CurrentDomain.BaseDirectory + "Battle_Data.json";
-            File.WriteAllText(@FILE_PATH, JsonConvert.SerializeObject(obj));
-        }
-
-        public static ObservableCollection<BattleResults> LoadBattleData(ObservableCollection<BattleResults> obj)
-        {
-            string FILE_PATH = AppDomain.CurrentDomain.BaseDirectory + "Battle_Data.json";
-
-            if (new FileInfo(FILE_PATH).Length == 0)
-            {
-                return obj;
-            }
-            else
-            {
-                string json = File.ReadAllText(@FILE_PATH);
-                JsonConvert.PopulateObject(json, obj);
-                return obj;
-            }
         }
 
         public class PropertyCopier<TParent, TChild> where TParent : class

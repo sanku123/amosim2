@@ -1,78 +1,17 @@
-﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:AmoSim2.UserControls" xmlns:ui="http://schemas.modernwpf.com/2019" x:Class="AmoSim2.UserControls.RacesList" mc:Ignorable="d">
-  <UserControl.Resources>
-    <Style TargetType="ListBoxItem">
-      <Setter Property="Height" Value="30" />
+﻿<UserControl x:Class="AmoSim2.UserControls.RacesList" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:AmoSim2.UserControls" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ui="http://schemas.modernwpf.com/2019" mc:Ignorable="d">
 
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ListBoxItem">
-            <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" Name="Bd" SnapsToDevicePixels="True">
-              <ContentPresenter Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-            </Border>
-            <ControlTemplate.Triggers>
-              <MultiTrigger>
-                <MultiTrigger.Conditions>
-                  <Condition Property="Selector.IsSelectionActive" Value="False" />
-                  <Condition Property="Selector.IsSelected" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Panel.Background" TargetName="Bd" Value="Transparent" />
-                <Setter Property="Border.BorderBrush" TargetName="Bd">
-                  <Setter.Value>
-                    <SolidColorBrush Color="White" Opacity="0.1" />
-                  </Setter.Value>
-                </Setter>
-              </MultiTrigger>
-              <MultiTrigger>
-                <MultiTrigger.Conditions>
-                  <Condition Property="Selector.IsSelectionActive" Value="True" />
-                  <Condition Property="Selector.IsSelected" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Panel.Background" TargetName="Bd" Value="Transparent" />
-                <Setter Property="Border.BorderBrush" TargetName="Bd">
-                  <Setter.Value>
-                    <SolidColorBrush Color="White" Opacity="0.1" />
-                  </Setter.Value>
-                </Setter>
-              </MultiTrigger>
-              <Trigger Property="UIElement.IsMouseOver" Value="True">
-                <Setter Property="Panel.Background" TargetName="Bd">
-                  <Setter.Value>
-                    <SolidColorBrush Color="White" Opacity="0.15" />
-                  </Setter.Value>
-                </Setter>
-                <Setter Property="Border.BorderBrush" TargetName="Bd">
-                  <Setter.Value>
-                    <SolidColorBrush Color="#A8FFFFFF" Opacity="0.1" />
-                  </Setter.Value>
-                </Setter>
-              </Trigger>
-              <Trigger Property="UIElement.IsEnabled" Value="False">
-                <Setter Property="TextElement.Foreground" TargetName="Bd">
-                  <Setter.Value>
-                    <DynamicResource ResourceKey="{x:Static SystemColors.GrayTextBrushKey}" />
-                  </Setter.Value>
-                </Setter>
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-  </UserControl.Resources>
   <Grid>
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
-        <Label Content="Rasa" Style="{StaticResource CardLabel}"></Label>
+        <Label Content="RASY" Style="{StaticResource CardLabel}" />
 
-        <ListBox x:Name="Race" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="Race_SelectionChanged" Background="{x:Null}" Foreground="White" VerticalContentAlignment="Center" Margin="0">
-          <ListBoxItem Content="Człowiek" />
-          <ListBoxItem Content="Krasnolud" />
-          <ListBoxItem Content="Elf" />
-          <ListBoxItem Content="Jaszczuroczłek" />
-          <ListBoxItem Content="Hobbit" />
-          <ListBoxItem Content="Gnom" />
-          <ListBoxItem Content="Wampir" />
-          <ListBoxItem Content="Wilkołak" />
+        <ListBox Name="RaceLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Races}">
+
+          <ie:Interaction.Triggers>
+            <ie:EventTrigger EventName="SelectionChanged">
+              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=RaceLB,Path=SelectedItem}" Command="{Binding SelectedRacesChangedCommand}" />
+            </ie:EventTrigger>
+          </ie:Interaction.Triggers>
         </ListBox>
       </StackPanel>
     </Border>

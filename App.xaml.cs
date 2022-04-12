@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+
 namespace AmoSim2
 {
     /// <summary>
@@ -28,7 +29,8 @@ namespace AmoSim2
                 new RoutedEventHandler(SelectAllText));
             base.OnStartup(e);
         }
-        void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
+
+        private void SelectivelyIgnoreMouseButton(object sender, MouseButtonEventArgs e)
         {
             // Find the TextBox
             DependencyObject parent = e.OriginalSource as UIElement;
@@ -48,12 +50,25 @@ namespace AmoSim2
             }
         }
 
-        void SelectAllText(object sender, RoutedEventArgs e)
+        private void DecimalTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            bool approvedDecimalPoint = false;
+
+            if (e.Text == ".")
+            {
+                if (!((TextBox)sender).Text.Contains("."))
+                    approvedDecimalPoint = true;
+            }
+
+            if (!(char.IsDigit(e.Text, e.Text.Length - 1) || approvedDecimalPoint))
+                e.Handled = true;
+        }
+
+        private void SelectAllText(object sender, RoutedEventArgs e)
         {
             var textBox = e.OriginalSource as TextBox;
             if (textBox != null)
                 textBox.SelectAll();
         }
     }
-   
 }

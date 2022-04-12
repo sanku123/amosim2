@@ -1,5 +1,4 @@
-﻿using AmoSim2.Battle;
-using AmoSim2.Monster;
+﻿using AmoSim2.Monster;
 using AmoSim2.Player;
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
@@ -18,11 +17,8 @@ namespace AmoSim2.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EnemyViewModel>();
-
             SimpleIoc.Default.Register<PlayerViewModel>();
-            SimpleIoc.Default.Register<BattleViewModel>();
             SimpleIoc.Default.Register<MonsterViewModel>();
-
         }
 
         private static ViewModelLocator _instance = null;
@@ -35,6 +31,7 @@ namespace AmoSim2.ViewModel
                 return _instance;
             }
         }
+
         public PlayerViewModel HubViewModel
         {
             get
@@ -42,27 +39,21 @@ namespace AmoSim2.ViewModel
                 return ServiceLocator.Current.GetInstance<PlayerViewModel>();
             }
         }
-        public EnemyViewModel EnemyView
+
+        public EnemyViewModel EnemyViewModel
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<EnemyViewModel>();
             }
         }
-        public BattleViewModel BattleView
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<BattleViewModel>();
-            }
-        }
-        public MonsterViewModel MonsterView
+
+        public MonsterViewModel MonsterViewModel
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<MonsterViewModel>();
             }
         }
-
     }
 }

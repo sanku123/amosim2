@@ -22,29 +22,9 @@ namespace AmoSim2.UserControls
     /// </summary>
     public partial class RobeList : UserControl
     {
-        public PlayerViewModel Main => ServiceLocator.Current.GetInstance<PlayerViewModel>();
-
         public RobeList()
         {
             InitializeComponent();
-        }
-        private void Robe_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ResetSzata();
-
-            if (Robe.SelectedIndex == 0)
-            {
-                Main.Player.KrasnoludzkaSzata = 2000;
-            }
-            else if (Robe.SelectedIndex == 1)
-            {
-                Main.Player.HobbickaSzata = 2000;
-            }
-        }
-        public void ResetSzata()
-        {
-            Main.Player.KrasnoludzkaSzata = 0;
-            Main.Player.HobbickaSzata = 0;
         }
     }
 }

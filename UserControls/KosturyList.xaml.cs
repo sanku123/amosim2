@@ -22,36 +22,9 @@ namespace AmoSim2.UserControls
     /// </summary>
     public partial class KosturyList : UserControl
     {
-        public PlayerViewModel Main => ServiceLocator.Current.GetInstance<PlayerViewModel>();
-
         public KosturyList()
         {
             InitializeComponent();
-        }
-        public void ResetKostury()
-        {
-            Main.Player.KosturDMG = 0;
-            Main.Player.KosturDEF = 0;
-            Main.Player.KosturSpeed = 0;
-        }
-        private void Kostur_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            ResetKostury();
-            if (Kostur.SelectedIndex == 0)
-            {
-                Main.Player.KosturDEF = 10000;
-            }
-            else if (Kostur.SelectedIndex == 1)
-            {
-                Main.Player.KosturDMG = 5000;
-                Main.Player.KosturDEF = 5000;
-            }
-            else if (Kostur.SelectedIndex == 2)
-            {
-                Main.Player.KosturDEF = 5000;
-                Main.Player.KosturSpeed = 5000;
-            }
         }
     }
 }

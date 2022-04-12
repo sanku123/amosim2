@@ -15,19 +15,18 @@ namespace AmoSim2.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        public PlayerViewModel PlayerViewModel { get; } = new PlayerViewModel();
-        public PlayerModel Player { get; set; }
+        //public PlayerViewModel PlayerViewModel { get; } = new PlayerViewModel();
+        //public PlayerModel Player { get; set; }
 
-        //[PreferredConstructorAttribute]
-        public MainViewModel()
-        {
-            AddClickCommand = new DelegateCommand(this.OnAddButtonClick);   
-        }
-        public ICommand AddClickCommand { get; private set; }
+        ////[PreferredConstructorAttribute]
+        //public MainViewModel()
+        //{
+        //    AddClickCommand = new DelegateCommand(this.OnAddButtonClick);
+        //}
+        //public ICommand AddClickCommand { get; private set; }
 
-        private void OnAddButtonClick()
-        {
-
-        }
+        //private void OnAddButtonClick()
+        //{
+        //}
     }
 }

@@ -7,41 +7,40 @@ using System.Windows.Input;
 
 namespace AmoSim2.Others
 {
-    public sealed class Command : ICommand
+    public class Command : ICommand
     {
-        private Action<object, CommandViewModel> _executeAction = null;
-        private Func<object, CommandViewModel, bool> _canExecuteAction = (o, vm) => true;
-
-        private CommandViewModel _viewModel { get; set; }
-
-        public Command(Action<object, CommandViewModel> pExecute, Func<object, CommandViewModel, bool> pCanExecute = null)
-        {
-            _executeAction = pExecute;
-
-            if (pCanExecute != null)
-            {
-                _canExecuteAction = pCanExecute;
-            }
-
-            if (_executeAction == null) throw new ArgumentNullException("An execution function must be provided!");
-        }
-
-        #region ICommand Members  
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecuteAction(parameter, _viewModel);
-        }
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+        private Action<object> _executeAction = null;
+        private Func<object, bool> _canExecuteFunc = (o) => true;
+
+        public Command(Action<object> pExecuteAction, Func<object, bool> pCanExecuteFunc = null)
+        {
+            _executeAction = pExecuteAction;
+
+            if (pCanExecuteFunc != null)
+            {
+                _canExecuteFunc = pCanExecuteFunc;
+            }
+
+            if (_executeAction == null)
+            {
+                throw new ArgumentNullException("Die ExecuteAction muss gesetzt sein!");
+            }
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecuteFunc(parameter);
+        }
+
         public void Execute(object parameter)
         {
-            _executeAction(parameter, _viewModel);
+            _executeAction(parameter);
         }
-        #endregion
     }
 }

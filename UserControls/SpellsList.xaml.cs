@@ -22,42 +22,9 @@ namespace AmoSim2.UserControls
     /// </summary>
     public partial class SpellsList : UserControl
     {
-        public PlayerViewModel Main => ServiceLocator.Current.GetInstance<PlayerViewModel>();
-
         public SpellsList()
         {
             InitializeComponent();
-        }
-
-        private void Czary_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ResetSpells();
-
-            if (Czary.SelectedIndex == 0)
-            {
-                Main.Player.CzarDEF = 1.5;
-            }
-            else if (Czary.SelectedIndex == 1)
-            {
-                Main.Player.CzarDEF = 1.1;
-                Main.Player.CzarSpeed = 1.4;
-            }
-            else if (Czary.SelectedIndex == 2)
-            {
-                Main.Player.CzarDMG = 1.5;
-            }
-            else if (Czary.SelectedIndex == 2)
-            {
-                Main.Player.CzarDMG = 1.4;
-                Main.Player.CzarSpeed2 = 1.1;
-            }
-        }
-        public void ResetSpells()
-        {
-            Main.Player.CzarDMG = 1;
-            Main.Player.CzarSpeed2 = 1;
-            Main.Player.CzarDEF = 1;
-            Main.Player.CzarSpeed = 1;
         }
     }
 }

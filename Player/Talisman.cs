@@ -1,19 +1,19 @@
-﻿using AmoSim2.ViewModel;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 
 namespace AmoSim2.Player
 {
-    public class Talisman : ViewModelBase
+    public partial class Model
     {
-        public List<Talisman> Talismans { get; set; } = new List<Talisman>();
+        [JsonIgnore]
+        public double StrengthTalizman { get; set; }
 
-        public Talisman()
-        {
-            Talismans.Add(new Talisman() { AttrType = "Strength", Modificator = 1.5 });
-        }
+        [JsonIgnore]
+        public double ToughnessTalizman { get; set; }
 
-        public string AttrType { get; set; }
+        [JsonIgnore]
+        public double AgilityTalizman { get; set; }
 
-        public double Modificator { get; set; }
+        [JsonIgnore]
+        public double SpeedTalizman { get; set; }
     }
 }

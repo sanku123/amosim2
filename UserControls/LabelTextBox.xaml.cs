@@ -32,7 +32,12 @@ namespace AmoSim2.UserControls
         DependencyProperty.Register(
             name: nameof(Text),
             propertyType: typeof(string),
-            ownerType: typeof(LabelTextBox));
+            ownerType: typeof(LabelTextBox),
+            new FrameworkPropertyMetadata
+            {
+                BindsTwoWayByDefault = true,
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
 
         public static readonly DependencyProperty MyImageSourceProperty =
     DependencyProperty.Register("ImgSource",
@@ -55,16 +60,16 @@ namespace AmoSim2.UserControls
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
+
         public LabelTextBox()
         {
             InitializeComponent();
         }
+
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
             BindingExpression be = tb.GetBindingExpression(TextBox.TextProperty);
             be.UpdateSource();
         }
-
     }
 }
-

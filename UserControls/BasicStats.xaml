@@ -1,16 +1,14 @@
-﻿<UserControl x:Class="AmoSim2.UserControls.BasicStats" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dt="clr-namespace:AmoSim2" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:uc="clr-namespace:AmoSim2.UserControls" xmlns:vm="clr-namespace:AmoSim2.ViewModel" xmlns:vm1="clr-namespace:AmoSim2.Player" mc:Ignorable="d">
+﻿<UserControl x:Class="AmoSim2.UserControls.BasicStats" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:dt="clr-namespace:AmoSim2" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:uc="clr-namespace:AmoSim2.UserControls" xmlns:vm="clr-namespace:AmoSim2.ViewModel" xmlns:vm1="clr-namespace:AmoSim2.Player" d:DataContext="{d:DesignInstance Type=vm1:PlayerModel}" mc:Ignorable="d">
 
   <StackPanel>
 
     <Border Style="{StaticResource Card}">
       <Grid>
         <StackPanel Orientation="Vertical">
-          <Label Content="Postać" Style="{StaticResource CardLabel}" />
+
           <UniformGrid Columns="2">
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/exp1.png" Label="Build" Text="{Binding Nickname, Mode=OneWay}" />
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/level_m.png" Label="Level" Text="{Binding Level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/zdrowie.png" Label="HP" Text="{Binding HP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/mana.png" Label="MP" Text="{Binding MP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
           </UniformGrid>
         </StackPanel>
       </Grid>
@@ -18,16 +16,36 @@
 
     <Border Style="{StaticResource Card}">
       <Grid>
+
         <StackPanel Orientation="Vertical">
-          <Label Content="Statystyki" Style="{StaticResource CardLabel}" />
-          <UniformGrid Columns="2">
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zrecznosc.png" Label="Zręczność" Text="{Binding Agility, Mode=OneWay}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila.png" Label="Siła" Text="{Binding Strength, Mode=OneWay}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/szyb.png" Label="Szybkość" Text="{Binding Speed, Mode=OneWay}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/wytrz.png" Label="Wytrzymałość" Text="{Binding Toughness, Mode=OneWay}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/inteli.png" Label="Inteligencja" Text="{Binding Inteligence, Mode=OneWay}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila_woli.png" Label="Siła Woli" Text="{Binding WillPower, Mode=OneWay}" />
-          </UniformGrid>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="BAZOWE" Style="{StaticResource CardLabel}" Width="110" />
+            <Label Content="PRZELICZONE" Style="{StaticResource CardLabel}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zrecznosc.png" Label="Zręczność" Text="{Binding BaseAgility, StringFormat=N0}" Width="90" />
+            <TextBlock Text="{Binding Agility, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Width="75" Foreground="#FFFBEE99" FontSize="16" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila.png" Label="Siła" Text="{Binding BaseStrength, StringFormat=N0}" Width="90" />
+            <TextBlock Text="{Binding Strength, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Foreground="#FFFBEE99" FontSize="16" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/szyb.png" Label="Szybkość" Text="{Binding BaseSpeed, StringFormat=N0}" Width="90" />
+            <TextBlock Text="{Binding Speed, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Foreground="#FFFBEE99" FontSize="16" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/wytrz.png" Label="Wytrzymałość" Text="{Binding BaseToughness, StringFormat=N0}" Width="90" />
+            <TextBlock Text="{Binding Toughness, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Foreground="#FFFBEE99" FontSize="16" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/inteli.png" Label="Inteligencja" Text="{Binding BaseInteligence, StringFormat=N0}" Width="90" />
+            <TextBlock Text="{Binding Inteligence, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Foreground="#FFFBEE99" FontSize="16" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila_woli.png" Label="Siła Woli" Text="{Binding BaseWillPower, StringFormat=N0}" Width="90" />
+            <TextBlock Text="{Binding WillPower, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Foreground="#FFFBEE99" FontSize="16" />
+          </StackPanel>
         </StackPanel>
       </Grid>
     </Border>
@@ -54,7 +72,8 @@
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila.png" Label="Atak broni" Text="{Binding WeaponDMG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/zduniku.png" Label="Unik Nagole" Text="{Binding EvasionLegs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/zduniku.png" Label="Unik Zbroja" Text="{Binding EvasionArmor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/obrona.png" Label="Obrona z EQ" Text="{Binding EQdefence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/obrona.png" Label="Obrona" Text="{Binding EQdefence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/szyb.png" Label="Szybkość Broni" Text="{Binding WeaponSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
           </UniformGrid>
         </StackPanel>
       </Grid>
