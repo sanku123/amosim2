@@ -7,14 +7,14 @@
       <StackPanel Orientation="Vertical">
         <Label Content="SZATY" Style="{StaticResource CardLabel}"></Label>
 
-        <ListBox Name="RobesLB1" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Robes}">
+        <ComboBox Name="RobesLB1" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedRobe, Mode=TwoWay}" ItemsSource="{Binding Robes}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">
-              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=RobesLB1,Path=SelectedItem}" Command="{Binding SelectedRobesChangedCommand}" />
+              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=RobesLB1,Path=SelectedItem}" />
             </ie:EventTrigger>
           </ie:Interaction.Triggers>
-        </ListBox>
+        </ComboBox>
       </StackPanel>
     </Border>
   </Grid>

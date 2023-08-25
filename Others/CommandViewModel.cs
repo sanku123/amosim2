@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmoSim2.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AmoSim2.Others
 {
-    public abstract class CommandViewModel
+    public abstract class CommandViewModel : ViewModelBase
     {
         public CommandViewModel()
         {

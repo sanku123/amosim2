@@ -3,22 +3,26 @@
   <Grid>
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
-        <Label Name="LB" Content="BŁOGOSŁAWIEŃSTWA" Style="{StaticResource CardLabel}">
+        <StackPanel Orientation="Horizontal">
+          <Label Name="LB" Content="BLESS" Style="{StaticResource CardLabel}">
+          
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="Click">
               <ie:InvokeCommandAction CommandParameter="{Binding ElementName=LB}" Command="{Binding Disattach}" />
             </ie:EventTrigger>
           </ie:Interaction.Triggers>
         </Label>
+          <CheckBox IsChecked="{Binding VampireBlessActive}"  Content="Wampirzy" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Foreground="#FFFFFDC1" HorizontalAlignment="Right"/>
+        </StackPanel>
 
-        <ListBox Name="BlessingsLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Blessings}">
+        <ComboBox Name="BlessingsLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedBlessing, Mode=TwoWay}" ItemsSource="{Binding Blessings}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">
-              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=BlessingsLB,Path=SelectedItem}" Command="{Binding SelectedBlessingsChangedCommand}" />
+              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=BlessingsLB,Path=SelectedItem}" />
             </ie:EventTrigger>
           </ie:Interaction.Triggers>
-        </ListBox>
+        </ComboBox>
       </StackPanel>
     </Border>
   </Grid>

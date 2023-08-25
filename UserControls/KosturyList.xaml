@@ -6,14 +6,14 @@
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
         <Label Content="KOSTURY" Style="{StaticResource CardLabel}" />
-        <ListBox Name="KosturyLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Kostury}">
+        <ComboBox Name="KosturyLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedKostur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Kostury}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">
-              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=KosturyLB,Path=SelectedItem}" Command="{Binding SelectedKosturyChangedCommand}" />
+              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=KosturyLB, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged}" />
             </ie:EventTrigger>
           </ie:Interaction.Triggers>
-        </ListBox>
+        </ComboBox>
       </StackPanel>
     </Border>
   </Grid>

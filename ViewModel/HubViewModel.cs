@@ -1,25 +1,21 @@
-﻿using System;
+﻿using AmoSim2.Others;
+using AmoSim2.Player;
+using CommonServiceLocator;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AmoSim2.Player;
-using AmoSim2.ViewModel;
-using CommonServiceLocator;
-using Newtonsoft.Json;
-using PropertyChanged;
 
-namespace AmoSim2.Player
+namespace AmoSim2.ViewModel
 {
-    
-    public partial class Model : ViewModelBase
+    public class HubViewModel : CommandViewModel
     {
-        [JsonIgnore]
-        public EnemyViewModel EnemyViewModel => ServiceLocator.Current.GetInstance<EnemyViewModel>();
-
-        [JsonIgnore]
+        public static HubViewModel Instance { get; } = new HubViewModel();
         public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
 
+        public EnemyViewModel EnemyViewModel => ServiceLocator.Current.GetInstance<EnemyViewModel>();
 
         private double _playerInicjatywaBase;
         public double PlayerInicjatywaBase
@@ -30,8 +26,11 @@ namespace AmoSim2.Player
             }
             set
             {
-                _playerInicjatywaBase = value;
-                OnPropertyChanged("EnemyInicjatywaBase");
+                if (value != _playerInicjatywaBase)
+                {
+                    _playerInicjatywaBase = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -44,8 +43,11 @@ namespace AmoSim2.Player
             }
             set
             {
-                _enemyInicjatywaBase = value;
-                OnPropertyChanged("PlayerInicjatywaBase");
+                if (value != _enemyInicjatywaBase)
+                {
+                    _enemyInicjatywaBase = value;
+                    OnPropertyChanged();
+                }
             }
         }
         [JsonIgnore]
@@ -75,27 +77,9 @@ namespace AmoSim2.Player
                 else return 1;
             }
         }
-
-        [JsonIgnore]
-        public double PlayerHitChance
+        public HubViewModel()
         {
-            get
-            {
-                double val = Math.Round(((Math.Log10(PlayerViewModel.Player.HitAbility + 200) - Math.Log10(EnemyViewModel.Enemy.EvasionFull + 200)) * 500) + 50, 2);
-                if (val > 98) return 98;
-                else return val;
-            }
-        }
-
-        [JsonIgnore]
-        public double EnemyHitChance
-        {
-            get
-            {
-                double val = Math.Round(((Math.Log10(EnemyViewModel.Enemy.HitAbility + 200) - Math.Log10(PlayerViewModel.Player.EvasionFull + 200)) * 500) + 50, 2);
-                if (val > 98) return 98;
-                else return val;
-            }
+            
         }
     }
 }
