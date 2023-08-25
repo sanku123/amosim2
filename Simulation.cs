@@ -31,7 +31,7 @@ namespace AmoSim2.Player
             set
             {
                 _playerInicjatywaBase = value;
-                OnPropertyChanged("EnemyInicjatywaBase");
+                OnPropertyChanged();
             }
         }
 
@@ -45,7 +45,7 @@ namespace AmoSim2.Player
             set
             {
                 _enemyInicjatywaBase = value;
-                OnPropertyChanged("PlayerInicjatywaBase");
+                OnPropertyChanged();
             }
         }
         [JsonIgnore]
