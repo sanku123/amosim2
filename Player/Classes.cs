@@ -18,24 +18,25 @@ namespace AmoSim2.Player
             set
             {
                 _class = value;
-                if (_class == "Mag" || _class == "Czarnoksiężnik")
+                switch (_class)
                 {
-                    MageControlsVisibility = true;
-                    MeleeControlsVisibility = false;
-                }
-                else if (_class == "")
-                {
-                    MageControlsVisibility = false;
-                    MeleeControlsVisibility = false;
-                }
-                else
-                {
-                    MageControlsVisibility = false;
-                    MeleeControlsVisibility = true;
-                    ResetKostury();
-                    ResetSpells1();
-                    ResetSpells2();
-                    ResetSzata();
+                    case "Mag":
+                    case "Czarnoksiężnik":
+                        MageControlsVisibility = true;
+                        MeleeControlsVisibility = false;
+                        break;
+                    case "":
+                        MageControlsVisibility = false;
+                        MeleeControlsVisibility = false;
+                        break;
+                    default:
+                        MageControlsVisibility = false;
+                        MeleeControlsVisibility = true;
+                        ResetKostury();
+                        ResetSpells1();
+                        ResetSpells2();
+                        ResetSzata();
+                        break;
                 }
             }
         }
