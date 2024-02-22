@@ -57,7 +57,7 @@ namespace AmoSim2.Player
         {
             ResetSpells2();
 
-            if (selectedCzar2 == "1.5 Inteligencja")
+            if (selectedCzar2 == "1.5 x Inteligencja")
             {
                 CzarDMG = 1.5;
             }

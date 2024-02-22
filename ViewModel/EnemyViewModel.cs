@@ -50,11 +50,6 @@ namespace AmoSim2.Player
                 CzarSpeed_1_1 = 0,
                 CzarSpeed_1_4 = 0,
 
-                StrengthTalizman = 1,
-                ToughnessTalizman = 1,
-                AgilityTalizman = 1,
-                SpeedTalizman = 1,
-
                 StrengthBlessActive = false,
                 ToughnessBlessActive = false,
                 AgilityBlessActive = false,

@@ -26,7 +26,7 @@ namespace AmoSim2.Player
         {
             get
             {
-                return PlayerViewModel.Player.BattleSpeed / EnemyViewModel.Enemy.BattleSpeed;
+                return Math.Round(PlayerViewModel.Player.BattleSpeed / EnemyViewModel.Enemy.BattleSpeed, 3);
             }
             set
             {
@@ -40,7 +40,7 @@ namespace AmoSim2.Player
         {
             get
             {
-                return EnemyViewModel.Enemy.BattleSpeed / PlayerViewModel.Player.BattleSpeed;
+                return Math.Round(EnemyViewModel.Enemy.BattleSpeed / PlayerViewModel.Player.BattleSpeed, 3);
             }
             set
             {

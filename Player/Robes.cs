@@ -55,7 +55,7 @@ namespace AmoSim2.Player
             get => _selectedRobe;
             set
             {
-                ResetKostury();
+                ResetSzata();
 
                 if (value != _selectedRobe)
                 {
@@ -70,22 +70,22 @@ namespace AmoSim2.Player
         {
             ResetSzata();
 
-            if (selectedRobe == "Krasnoludzka")
-            {
-                //KrasnoludzkaSzata = 2000;
-            }
-            else if (selectedRobe == "Hobbicka" && Race == "Hobbit")
-            {
-                //HobbickaSzata = 3000;
-            }
-            else if (selectedRobe == "Hobbicka" && Race != "Hobbit")
-            {
-                //HobbickaSzata = 2000;
-            }
-            else if (selectedRobe == "")
-            {
-                ResetSzata();
-            }
+            //if (selectedRobe == "Krasnoludzka")
+            //{
+            //    //KrasnoludzkaSzata = 2000;
+            //}
+            //else if (selectedRobe == "Hobbicka" && Race == "Hobbit")
+            //{
+            //    //HobbickaSzata = 3000;
+            //}
+            //else if (selectedRobe == "Hobbicka" && Race != "Hobbit")
+            //{
+            //    //HobbickaSzata = 2000;
+            //}
+            //else if (selectedRobe == "")
+            //{
+            //    ResetSzata();
+            //}
         }
 
         public List<string> Robes => new List<String> { "", "Krasnoludzka", "Hobbicka" };

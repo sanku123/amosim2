@@ -97,7 +97,7 @@ namespace AmoSim2.Player
         [JsonIgnore]
         public double BattleSpeed => Class == "Mag" || Class == "Czarnoksiężnik"
                     ? Speed * (1 + CzarSpeed_1_4 + CzarSpeed_1_1) + Level
-                    : (BaseSpeed - BonusAbove200Level(2)) * SpeedTalizman * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
+                    : (BaseSpeed - BonusAbove200Level(2)) * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
 
         [JsonIgnore]
         public bool Archer
@@ -272,6 +272,9 @@ namespace AmoSim2.Player
 
         [JsonIgnore]
         public int BonusŁowcy => Class == "Łowca" ? (int)(Level / 2) : 0;
+
+        [JsonIgnore]
+        public int WarlockPoisonDamage => Class == "Czarnoksiężnik" ? (int)(Level) : 0;
 
         [JsonIgnore]
         public double BlockChance

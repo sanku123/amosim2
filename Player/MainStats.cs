@@ -19,16 +19,16 @@ namespace AmoSim2.Player
         public double BaseWillPower { get; set; }
 
         [JsonIgnore]
-        public double Strength => (BaseStrength - BonusAbove200Level(3)) * StrengthTalizman + BonusAbove200Level(3) + StrengthBless;
+        public double Strength => (BaseStrength - BonusAbove200Level(3)) + BonusAbove200Level(3) + StrengthBless;
 
         [JsonIgnore]
-        public double Toughness => BaseToughness * ToughnessTalizman + ToughnessBless;
+        public double Toughness => BaseToughness + ToughnessBless;
 
         [JsonIgnore]
-        public double Agility => BaseAgility * AgilityTalizman + AgilityBless;
+        public double Agility => BaseAgility + AgilityBless;
 
         [JsonIgnore]
-        public double Speed => (BaseSpeed - BonusAbove200Level(2)) * SpeedTalizman + BonusAbove200Level(2) + SpeedBless + KosturSpeed;
+        public double Speed => (BaseSpeed - BonusAbove200Level(2)) + BonusAbove200Level(2) + SpeedBless + KosturSpeed;
 
         [JsonIgnore]
         public double Inteligence => BaseInteligence + InteligenceBless + KosturDMG;

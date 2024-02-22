@@ -31,7 +31,6 @@
           <uc:RobeList />
           <uc:KosturyList />
           <uc:SpellsList />
-          <uc:TalizmanList />
           <uc:Equipment />
         </StackPanel>
         <StackPanel>
@@ -55,7 +54,6 @@
           <uc:RobeList />
           <uc:KosturyList />
           <uc:SpellsList />
-          <uc:TalizmanList />
           <uc:Equipment />
         </StackPanel>
       </StackPanel>
@@ -103,20 +101,20 @@
 
         <Label Grid.Row="3" Margin="0,8,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="Inicjatywa" Foreground="#FFF9F5F5" />
          <StackPanel Grid.Row="4" Margin="0,0,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Label DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Content="{Binding PlayerInicjatywaBase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"  ContentStringFormat="N3" FontSize="16" FontWeight="Light" Foreground="White" />
-                    <Label DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Content="{Binding PlayerInicjatywa, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="PlayerInicjatywaBaseLbl" Content="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"  ContentStringFormat="N3" FontSize="16" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="PlayerInicjatywaLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
             <Label HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content=":" FontSize="24" FontWeight="Light" Foreground="White" />
-                    <Label DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Content="{Binding EnemyInicjatywa, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
-                    <Label DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Content="{Binding EnemyInicjatywaBase, StringFormat=N4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"  ContentStringFormat="N3" FontSize="16" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="EnemyInicjatywaLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="EnemyInicjatywaBaseLbl" Content="0" Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"  ContentStringFormat="N3" FontSize="16" FontWeight="Light" Foreground="White" />
         </StackPanel>
 
                 
 
         <Label Grid.Row="3" Grid.Column="1" Margin="0,8,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="Trafienie (%) Gracz vs Przeciwnik" Foreground="#FFF9F5F5" />
         <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
-          <Label DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Content="{Binding PlayerHitChance, Mode=OneWay}" Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContentStringFormat="N2" FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
+          <Label x:Name="PlayerTrafienieLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContentStringFormat="N2" FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
           <Label HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content=":" FontSize="24" FontWeight="Light" Foreground="White" />
-          <Label DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Content="{Binding EnemyHitChance, Mode=OneWay}" Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContentStringFormat="N2" FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="EnemyTrafienieLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContentStringFormat="N2" FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
         </StackPanel>
         <ScrollViewer x:Name="scrollBattle" Grid.Row="5" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
           <TextBlock x:Name="BattleLog" Grid.Row="5" Grid.ColumnSpan="2" Height="auto" Margin="8,16,8,12" Padding="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFFCFCFC" Opacity="0.85" TextWrapping="Wrap">
@@ -132,11 +130,13 @@
               <ColumnDefinition />
               <ColumnDefinition />
               <ColumnDefinition />
+              <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="6" Click="Button_Click" Content="START" Style="{StaticResource LargeButton}" />
-            <TextBox x:Name="Win_Tb" Grid.Column="1" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FF7CC582" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
-            <TextBox x:Name="Draw_Tb" Grid.Column="2" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFC9A570" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
-            <TextBox x:Name="Lost_Tb" Grid.Column="3" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFBF7B7B" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
+            <Button Grid.Column="0" Margin="6" Click="Update_Click" Content="UPDATE" Style="{StaticResource LargeButton}" />
+            <Button Grid.Column="1" Margin="6" Click="Button_Click" Content="START" Style="{StaticResource LargeButton}" />
+            <TextBox x:Name="Win_Tb" Grid.Column="2" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FF7CC582" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
+            <TextBox x:Name="Draw_Tb" Grid.Column="3" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFC9A570" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
+            <TextBox x:Name="Lost_Tb" Grid.Column="4" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFBF7B7B" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
           </Grid>
         </Border>
       </Grid>

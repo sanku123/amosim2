@@ -22,7 +22,6 @@ namespace AmoSim2.Player
                 {
                     MageControlsVisibility = true;
                     MeleeControlsVisibility = false;
-                    ResetTalisman();
                 }
                 else if (_class == "")
                 {

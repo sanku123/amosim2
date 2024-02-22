@@ -39,7 +39,6 @@ namespace AmoSim2
             PlayerViewModel.Player.Race = "";
             PlayerViewModel.Player.Class = "";
              PlayerViewModel.Player.SelectedKostur = "";
-            PlayerViewModel.Player.SelectedTalisman = "";
             PlayerViewModel.Player.SelectedRobe = "";
             PlayerViewModel.Player.SelectedBlessing = "";
             PlayerViewModel.Player.SelectedCzar1 = "";
@@ -62,6 +61,17 @@ namespace AmoSim2
             Win_Tb.Text = (WinCount / iteracje * 100).ToString() + "%";
             Lost_Tb.Text = (LostCount / iteracje * 100).ToString() + "%";
             Draw_Tb.Text = (DrawCount / iteracje * 100).ToString() + "%";
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerInicjatywaBaseLbl.Content = PlayerViewModel.Player.PlayerInicjatywaBase.ToString();
+            PlayerInicjatywaLbl.Content = PlayerViewModel.Player.PlayerInicjatywa.ToString();
+            EnemyInicjatywaBaseLbl.Content = EnemyViewModel.Enemy.EnemyInicjatywaBase.ToString();
+            EnemyInicjatywaLbl.Content = EnemyViewModel.Enemy.EnemyInicjatywa.ToString();
+
+            PlayerTrafienieLbl.Content = PlayerViewModel.Player.PlayerHitChance.ToString();
+            EnemyTrafienieLbl.Content = EnemyViewModel.Enemy.EnemyHitChance.ToString();
         }
 
         private void BeginFastSimulation()
@@ -146,6 +156,11 @@ namespace AmoSim2
                             int damage = (int)Math.Max(EnemyViewModel.Enemy.BonusŁowcy, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.BonusŁowcy - PlayerViewModel.Player.Defence);
                             HP1 -= damage;
                         }
+                        else if (EnemyViewModel.Enemy.Class == "Czarnoksiężnik" && PlayerViewModel.Player.Race != "Jaszczuroczłek")
+                        {
+                            int damage = (int)Math.Max(EnemyViewModel.Enemy.WarlockPoisonDamage, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.WarlockPoisonDamage - PlayerViewModel.Player.Defence);
+                            HP1 -= damage;
+                        }
                         else
                         {
                             int damage = (int)Math.Max(0, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty - PlayerViewModel.Player.Defence);
@@ -176,6 +191,11 @@ namespace AmoSim2
                         if (PlayerViewModel.Player.Class == "Łowca" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
                         {
                             int damage = (int)Math.Max(PlayerViewModel.Player.BonusŁowcy, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.BonusŁowcy - EnemyViewModel.Enemy.Defence);
+                            HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
+                        }
+                        else if (PlayerViewModel.Player.Class == "Czarnoksiężnik" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
+                        {
+                            int damage = (int)Math.Max(PlayerViewModel.Player.WarlockPoisonDamage, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.WarlockPoisonDamage - EnemyViewModel.Enemy.Defence);
                             HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
                         }
                         else
