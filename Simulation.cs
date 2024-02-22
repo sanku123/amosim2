@@ -21,33 +21,11 @@ namespace AmoSim2.Player
         public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
 
 
-        private double _playerInicjatywaBase;
-        public double PlayerInicjatywaBase
-        {
-            get
-            {
-                return Math.Round(PlayerViewModel.Player.BattleSpeed / EnemyViewModel.Enemy.BattleSpeed, 3);
-            }
-            set
-            {
-                _playerInicjatywaBase = value;
-                OnPropertyChanged();
-            }
-        }
+        public double PlayerInicjatywaBase => Math.Round(PlayerViewModel.Player.BattleSpeed / EnemyViewModel.Enemy.BattleSpeed, 3);
 
-        private double _enemyInicjatywaBase;
-        public double EnemyInicjatywaBase
-        {
-            get
-            {
-                return Math.Round(EnemyViewModel.Enemy.BattleSpeed / PlayerViewModel.Player.BattleSpeed, 3);
-            }
-            set
-            {
-                _enemyInicjatywaBase = value;
-                OnPropertyChanged();
-            }
-        }
+        public double EnemyInicjatywaBase => Math.Round(EnemyViewModel.Enemy.BattleSpeed / PlayerViewModel.Player.BattleSpeed, 3);
+
+
         [JsonIgnore]
         public double PlayerInicjatywa => GetInicjatywa(PlayerInicjatywaBase);
 
