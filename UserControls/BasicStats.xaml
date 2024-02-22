@@ -80,9 +80,9 @@
             </StackPanel>
           </StackPanel>
           <StackPanel Orientation="Horizontal">
-            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila_woli.png" Label="Willpower" Text="{Binding BaseWillPower, StringFormat=N0}" Width="90" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/sila_woli.png" Label="Siła Woli" Text="{Binding BaseWillPower, StringFormat=N0}" Width="90" />
             <StackPanel Height="52" Orientation="Vertical">
-              <Label Content="Willpower" Foreground="White" FontFamily="Segoe UI Semibold" />
+              <Label Content="Siła Woli" Foreground="White" FontFamily="Segoe UI Semibold" />
               <TextBlock Text="{Binding WillPower, Mode=OneWay, StringFormat=' \{0:#\,0\}'}" Style="{StaticResource CalculatedValue}" Width="75" Foreground="White" FontSize="16" Padding="3,0,0,0" Margin="12,0,0,5" FontFamily="Segoe UI Symbol" Height="24">
                 <TextBlock.Background>
                   <SolidColorBrush Color="White" Opacity="0.185" />
