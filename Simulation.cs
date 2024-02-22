@@ -65,25 +65,15 @@ namespace AmoSim2.Player
 
 
         [JsonIgnore]
-        public double PlayerHitChance
-        {
-            get
-            {
-                double val = Math.Round(((Math.Log10(PlayerViewModel.Player.HitAbility + 200) - Math.Log10(EnemyViewModel.Enemy.EvasionFull + 200)) * 500) + 50, 2);
-                if (val > 98) return 98;
-                else return val;
-            }
-        }
+        public double PlayerHitChance => CalculateHitChance(PlayerViewModel.Player.HitAbility, EnemyViewModel.Enemy.EvasionFull);
 
         [JsonIgnore]
-        public double EnemyHitChance
+        public double EnemyHitChance => CalculateHitChance(EnemyViewModel.Enemy.HitAbility, PlayerViewModel.Player.EvasionFull);
+
+        private double CalculateHitChance(double attackerAbility, double defenderEvasion)
         {
-            get
-            {
-                double val = Math.Round(((Math.Log10(EnemyViewModel.Enemy.HitAbility + 200) - Math.Log10(PlayerViewModel.Player.EvasionFull + 200)) * 500) + 50, 2);
-                if (val > 98) return 98;
-                else return val;
-            }
+            double val = Math.Round(((Math.Log10(attackerAbility + 200) - Math.Log10(defenderEvasion + 200)) * 500) + 50, 2);
+            return Math.Min(val, 98); // Ensure the value does not exceed 98
         }
     }
 }
