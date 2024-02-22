@@ -49,32 +49,20 @@ namespace AmoSim2.Player
             }
         }
         [JsonIgnore]
-        public double PlayerInicjatywa
-        {
-            get
-            {
-                double val = PlayerInicjatywaBase;
-                if (val >= 4.2) return 5;
-                else if (val >= 3.2 && val < 4.2) return 4;
-                else if (val >= 2.2 && val < 3.2) return 3;
-                else if (val >= 1.15 && val < 2.2) return 2;
-                else return 1;
-            }
-        }
+        public double PlayerInicjatywa => GetInicjatywa(PlayerInicjatywaBase);
 
         [JsonIgnore]
-        public double EnemyInicjatywa
+        public double EnemyInicjatywa => GetInicjatywa(EnemyInicjatywaBase);
+
+        private double GetInicjatywa(double baseValue)
         {
-            get
-            {
-                double val = EnemyInicjatywaBase;
-                if (val >= 4.2) return 5;
-                else if (val >= 3.2 && val < 4.2) return 4;
-                else if (val >= 2.2 && val < 3.2) return 3;
-                else if (val >= 1.15 && val < 2.2) return 2;
-                else return 1;
-            }
+            if (baseValue >= 4.2) return 5;
+            else if (baseValue >= 3.2) return 4;
+            else if (baseValue >= 2.2) return 3;
+            else if (baseValue >= 1.15) return 2;
+            else return 1;
         }
+
 
         [JsonIgnore]
         public double PlayerHitChance
