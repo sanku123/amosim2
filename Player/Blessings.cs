@@ -85,7 +85,7 @@ namespace AmoSim2.Player
         [JsonIgnore]
         public bool UnikiBlessActive { get; set; }
 
-        public List<string> Blessings => new List<String> { "", "Siła", "Wytrzymałość", "Zręczność", "Szybkość", "Inteligencja", "Siła Woli", "Trafienie", "Uniki" };
+        public List<string> Blessings => new List<String> { "", "Siła", "Wytrzymałość", "Zręczność", "Szybkość", "Inteligencja", "Willpower", "Trafienie", "Uniki" };
 
         public void ResetBlessings()
         {
@@ -143,7 +143,7 @@ namespace AmoSim2.Player
                     InteligenceBlessActive = true;
                     break;
 
-                case "Siła Woli":
+                case "Willpower":
                     WillPowerBlessActive = true;
                     break;
 

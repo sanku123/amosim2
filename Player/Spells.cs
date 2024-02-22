@@ -18,7 +18,7 @@ namespace AmoSim2.Player
         [JsonIgnore]
         public double CzarSpeed_1_4 { get; set; }
 
-        public List<string> Czary1 => new List<String> { "", "1.5 x Siła Woli", "1.1 x Siła Woli 1.4 x Szybkość" };
+        public List<string> Czary1 => new List<String> { "", "1.5 x Willpower", "1.1 x Willpower 1.4 x Szybkość" };
 
         public List<string> Czary2 => new List<String> { "", "1.5 x Inteligencja", "1.4 x Inteligencja 1.1 x Szybkość" };
 
@@ -38,11 +38,11 @@ namespace AmoSim2.Player
         {
             ResetSpells1();
 
-            if (selectedCzar1 == "1.5 x Siła Woli")
+            if (selectedCzar1 == "1.5 x Willpower")
             {
                 CzarDEF = 1.5;
             }
-            else if (selectedCzar1 == "1.1 x Siła Woli 1.4 x Szybkość")
+            else if (selectedCzar1 == "1.1 x Willpower 1.4 x Szybkość")
             {
                 CzarDEF = 1.1;
                 CzarSpeed_1_4 = 0.4;
