@@ -9,20 +9,22 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
+        public List<string> Robes => new List<String> { "", "Krasnoludzka", "Hobbicka" };
+
         [JsonIgnore]
         public double HobbickaSzata
         {
             get
             {
-                if (SelectedRobe == "Hobbicka" && Race == "Hobbit")
+                switch (SelectedRobe)
                 {
-                    return 3000;
+                    case "Hobbicka" when Race == "Hobbit":
+                        return 3000;
+                    case "Hobbicka":
+                        return 2000;
+                    default:
+                        return 0;
                 }
-                else if (SelectedRobe == "Hobbicka")
-                {
-                    return 2000;
-                }
-                return 0;
             }
         }
 
@@ -30,22 +32,16 @@ namespace AmoSim2.Player
         {
             get
             {
-                if (SelectedRobe == "Krasnoludzka" && Race == "Krasnolud")
+                switch (SelectedRobe)
                 {
-                    return 4000;
-                }
-                else if (SelectedRobe == "Krasnoludzka")
-                {
-                    return 2000;
-                }
-                return 0;
+                    case "Krasnoludzka" when Race == "Krasnolud":
+                        return 4000;
+                    case "Krasnoludzka":
+                        return 2000;
+                    default:
+                        return 0;
+                } 
             }
-        }
-
-        public void ResetSzata()
-        {
-            //KrasnoludzkaSzata = 0;
-            //HobbickaSzata = 0;
         }
 
         private string _selectedRobe;
@@ -55,39 +51,12 @@ namespace AmoSim2.Player
             get => _selectedRobe;
             set
             {
-                ResetSzata();
-
                 if (value != _selectedRobe)
                 {
                     _selectedRobe = value;
                     OnPropertyChanged();
-                    SelectedRobeChanged(_selectedRobe);
                 }
             }
-        }
-
-        private void SelectedRobeChanged(string selectedRobe)
-        {
-            ResetSzata();
-
-            //if (selectedRobe == "Krasnoludzka")
-            //{
-            //    //KrasnoludzkaSzata = 2000;
-            //}
-            //else if (selectedRobe == "Hobbicka" && Race == "Hobbit")
-            //{
-            //    //HobbickaSzata = 3000;
-            //}
-            //else if (selectedRobe == "Hobbicka" && Race != "Hobbit")
-            //{
-            //    //HobbickaSzata = 2000;
-            //}
-            //else if (selectedRobe == "")
-            //{
-            //    ResetSzata();
-            //}
-        }
-
-        public List<string> Robes => new List<String> { "", "Krasnoludzka", "Hobbicka" };
+        }    
     }
 }

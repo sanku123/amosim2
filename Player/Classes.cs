@@ -35,7 +35,6 @@ namespace AmoSim2.Player
                         ResetKostury();
                         ResetSpells1();
                         ResetSpells2();
-                        ResetSzata();
                         break;
                 }
             }

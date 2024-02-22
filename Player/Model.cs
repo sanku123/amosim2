@@ -25,14 +25,8 @@ namespace AmoSim2.Player
         public string Build => Race + " " + Class;
 
         [JsonIgnore]
-        public bool Barbarian
-        {
-            get
-            {
-                if (Class == "Barbarzyńca") return true;
-                return false;
-            }
-        }
+        public bool Barbarian => Class == "Barbarzyńca";
+
 
         public double Level { get; set; }
 
@@ -100,34 +94,16 @@ namespace AmoSim2.Player
                     : (BaseSpeed - BonusAbove200Level(2)) * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
 
         [JsonIgnore]
-        public bool Archer
-        {
-            get
-            {
-                if (new[] { Strength, Agility, Inteligence }.Max() == Agility) return true;
-                return false;
-            }
-        }
+        public bool Archer => new[] { Strength, Agility, Inteligence }.Max() == Agility;
+
 
         [JsonIgnore]
-        public bool Mage
-        {
-            get
-            {
-                if (new[] { Strength, Agility, Inteligence }.Max() == Inteligence) return true;
-                return false;
-            }
-        }
+        public bool Mage => new[] { Strength, Agility, Inteligence }.Max() == Inteligence;
+
 
         [JsonIgnore]
-        public bool Warrior
-        {
-            get
-            {
-                if (new[] { Strength, Agility, Inteligence }.Max() == Strength) return true;
-                return false;
-            }
-        }
+        public bool Warrior => new[] { Strength, Agility, Inteligence }.Max() == Strength;
+
 
         [JsonIgnore]
         public double ThiefEvasion
@@ -175,31 +151,14 @@ namespace AmoSim2.Player
         {
             get
             {
-                if (Class != "Barbarzyńca")
+                if (Class == "Barbarzyńca")
                 {
-                    return 0;
+                    return Level <= 100 ? 6 * Level :
+                           Level <= 200 ? 600 + 8 * (Level - 100) :
+                           Level <= 300 ? 1400 + 10 * (Level - 200) :
+                           2400 + 14 * (Level - 300);
                 }
-
-                double val = 0;
-
-                if (Level >= 1 && Level <= 100)
-                {
-                    val = 6 * Level;
-                }
-                else if (Level >= 101 && Level <= 200)
-                {
-                    val = 600 + (8 * (Level - 100));
-                }
-                else if (Level >= 201 && Level <= 300)
-                {
-                    val = 1400 + (10 * (Level - 200));
-                }
-                else if (Level >= 301)
-                {
-                    val = 2400 + (14 * (Level - 300));
-                }
-
-                return val;
+                return 0;
             }
         }
 
