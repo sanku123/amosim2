@@ -1,25 +1,10 @@
 ﻿using AmoSim2.Player;
-using AmoSim2.ViewModel;
 using CommonServiceLocator;
-using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AmoSim2
 {
@@ -32,7 +17,7 @@ namespace AmoSim2
 
         public EnemyViewModel EnemyViewModel => ServiceLocator.Current.GetInstance<EnemyViewModel>();
 
-        private Random rnd = new Random();
+        private readonly Random rnd = new Random();
 
         public double WinCount { get; set; }
 
@@ -47,27 +32,26 @@ namespace AmoSim2
 
         private void MyWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //Session.SavePlayerData(PlayerViewModel.Player);
         }
 
         private void MyWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //Session.LoadPlayerData(Main.Player);
-            //Session.LoadBattleData(BattleResultsSource.Results);
+            PlayerViewModel.Player.Race = "";
+            PlayerViewModel.Player.Class = "";
+             PlayerViewModel.Player.SelectedKostur = "";
+            PlayerViewModel.Player.SelectedRobe = "";
+            PlayerViewModel.Player.SelectedBlessing = "";
+            PlayerViewModel.Player.SelectedCzar1 = "";
+            PlayerViewModel.Player.SelectedCzar2 = "";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(PlayerViewModel.Player.HP.ToString());
-            //MessageBox.Show(EnemyViewModel.Enemy.HP.ToString());
-
-            BeginSimulation();
-
             WinCount = 0;
             LostCount = 0;
             DrawCount = 0;
 
-            int iteracje = 1000;
+            int iteracje = 20000;
 
             for (int i = 0; i < iteracje; i++)
             {
@@ -79,105 +63,23 @@ namespace AmoSim2
             Draw_Tb.Text = (DrawCount / iteracje * 100).ToString() + "%";
         }
 
-        private void BeginSimulation()
+        private void Update_Click(object sender, RoutedEventArgs e)
         {
-            scrollBattle.Height = 560;
-            BattleLog.Text = String.Empty;
+            PlayerInicjatywaBaseLbl.Content = PlayerViewModel.Player.PlayerInicjatywaBase.ToString();
+            PlayerInicjatywaLbl.Content = PlayerViewModel.Player.PlayerInicjatywa.ToString();
+            EnemyInicjatywaBaseLbl.Content = EnemyViewModel.Enemy.EnemyInicjatywaBase.ToString();
+            EnemyInicjatywaLbl.Content = EnemyViewModel.Enemy.EnemyInicjatywa.ToString();
 
-            int HP1 = (int)PlayerViewModel.Player.HP;
-            int HP2 = (int)EnemyViewModel.Enemy.HP;
-
-            for (int i = 1; i <= 24; i++)
-            {
-                BattleLog.Inlines.Add("Tura: " + i.ToString() + Environment.NewLine);
-                for (int x = 0; x < PlayerViewModel.Player.PlayerInicjatywa && (HP2 > 0); x++)
-                {
-                    if (PlayerViewModel.Player.PlayerHitChance >= rnd.Next(1, 101))
-                    {
-                        if (EnemyViewModel.Enemy.BlockChance >= rnd.Next(1, 101))
-                        {
-                            MsgAtakOdparty();
-                        }
-                        else
-                        {
-                            if (PlayerViewModel.Player.Class == "Łowca" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
-                            {
-                                int damage = (int)Math.Max(PlayerViewModel.Player.BonusŁowcy, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * PlayerViewModel.Player.Level))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.BonusŁowcy - EnemyViewModel.Enemy.Defence);
-                                HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
-                                MsgAtak(HP2, damage);
-                            }
-                            else
-                            {
-                                int damage = (int)Math.Max(0, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * PlayerViewModel.Player.Level))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty - EnemyViewModel.Enemy.Defence);
-                                HP2 -= damage;
-                                MsgAtak(HP2, damage);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MsgAtakNietrafiony();
-                    }
-                }
-
-                if (HP2 < 1)
-                {
-                    WinCount += 1;
-                    BattleLog.Inlines.Add(Environment.NewLine);
-                    BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname + " zwycięża! ");
-                }
-
-                for (int y = 0; y < EnemyViewModel.Enemy.EnemyInicjatywa && (HP1 > 0); y++)
-                {
-                    if (EnemyViewModel.Enemy.EnemyHitChance >= rnd.Next(1, 101))
-                    {
-                        if (PlayerViewModel.Player.BlockChance >= rnd.Next(1, 101))
-                        {
-                            MsgAtakOdpartyXP();
-                        }
-                        else
-                        {
-                            if (EnemyViewModel.Enemy.Race == "Łowca" && PlayerViewModel.Player.Race != "Jaszczuroczłek")
-                            {
-                                int damage = (int)Math.Max(EnemyViewModel.Enemy.BonusŁowcy, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * EnemyViewModel.Enemy.Level))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.BonusŁowcy - PlayerViewModel.Player.Defence);
-                                HP1 -= damage;
-                                MsgAtakXP(HP1, damage);
-                            }
-                            else
-                            {
-                                int damage = (int)Math.Max(0, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * EnemyViewModel.Enemy.Level))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty - PlayerViewModel.Player.Defence);
-                                HP1 -= damage;
-                                MsgAtakXP(HP1, damage);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        MsgAtakNietrafionyXP();
-                    }
-                }
-
-                if (HP1 < 1)
-                {
-                    LostCount += 1;
-                    BattleLog.Inlines.Add(Environment.NewLine);
-                    BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname + " zwycięża! ");
-                    break;
-                }
-
-                if (i == 24)
-                {
-                    DrawCount += 1;
-                    BattleLog.Inlines.Add(Environment.NewLine);
-                    BattleLog.Inlines.Add("Walka nierozstrzygnięta! ");
-                    break;
-                }
-                BattleLog.Inlines.Add(Environment.NewLine);
-            }
+            PlayerTrafienieLbl.Content = PlayerViewModel.Player.PlayerHitChance.ToString();
+            EnemyTrafienieLbl.Content = EnemyViewModel.Enemy.EnemyHitChance.ToString();
         }
 
         private void BeginFastSimulation()
         {
+            EnemyViewModel.Enemy.MP -= 1;
+
+            PlayerViewModel.Player.MP -= 1;
+
             BattleLog.Text = String.Empty;
 
             int HP1 = (int)PlayerViewModel.Player.HP;
@@ -236,9 +138,12 @@ namespace AmoSim2
 
         private int PerformEnemyAttackMulti(int HP1)
         {
+            int eLevel = (int)Math.Max(1, EnemyViewModel.Enemy.Level);
+            double enemyHitChance = Math.Max(2, EnemyViewModel.Enemy.EnemyHitChance);
+
             for (int y = 0; y < EnemyViewModel.Enemy.EnemyInicjatywa && (HP1 > 0); y++)
             {
-                if (EnemyViewModel.Enemy.EnemyHitChance >= rnd.Next(1, 101))
+                if (enemyHitChance >= rnd.Next(1, 101))
                 {
                     if (PlayerViewModel.Player.BlockChance >= rnd.Next(1, 101))
                     {
@@ -248,12 +153,17 @@ namespace AmoSim2
                     {
                         if (EnemyViewModel.Enemy.Class == "Łowca" && PlayerViewModel.Player.Race != "Jaszczuroczłek")
                         {
-                            int damage = (int)Math.Max(EnemyViewModel.Enemy.BonusŁowcy, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * EnemyViewModel.Enemy.Level))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.BonusŁowcy - PlayerViewModel.Player.Defence);
+                            int damage = (int)Math.Max(EnemyViewModel.Enemy.BonusŁowcy, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.BonusŁowcy - PlayerViewModel.Player.Defence);
+                            HP1 -= damage;
+                        }
+                        else if (EnemyViewModel.Enemy.Class == "Czarnoksiężnik" && PlayerViewModel.Player.Race != "Jaszczuroczłek")
+                        {
+                            int damage = (int)Math.Max(EnemyViewModel.Enemy.WarlockPoisonDamage, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.WarlockPoisonDamage - PlayerViewModel.Player.Defence);
                             HP1 -= damage;
                         }
                         else
                         {
-                            int damage = (int)Math.Max(0, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * EnemyViewModel.Enemy.Level))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty - PlayerViewModel.Player.Defence);
+                            int damage = (int)Math.Max(0, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty - PlayerViewModel.Player.Defence);
                             HP1 -= damage;
                         }
                     }
@@ -265,9 +175,12 @@ namespace AmoSim2
 
         private int PerformPlayerAttackMulti(int HP1, int HP2)
         {
+            int pLevel = (int)Math.Max(1, PlayerViewModel.Player.Level);
+            double playerHitChance = Math.Max(2, PlayerViewModel.Player.PlayerHitChance);
+
             for (int x = 0; x < PlayerViewModel.Player.PlayerInicjatywa && (HP1 > 0); x++)
             {
-                if (PlayerViewModel.Player.PlayerHitChance >= rnd.Next(1, 101))
+                if (playerHitChance >= rnd.Next(1, 101))
                 {
                     if (EnemyViewModel.Enemy.BlockChance >= rnd.Next(1, 101))
                     {
@@ -277,12 +190,17 @@ namespace AmoSim2
                     {
                         if (PlayerViewModel.Player.Class == "Łowca" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
                         {
-                            int damage = (int)Math.Max(PlayerViewModel.Player.BonusŁowcy, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * PlayerViewModel.Player.Level))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.BonusŁowcy - EnemyViewModel.Enemy.Defence);
+                            int damage = (int)Math.Max(PlayerViewModel.Player.BonusŁowcy, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.BonusŁowcy - EnemyViewModel.Enemy.Defence);
+                            HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
+                        }
+                        else if (PlayerViewModel.Player.Class == "Czarnoksiężnik" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
+                        {
+                            int damage = (int)Math.Max(PlayerViewModel.Player.WarlockPoisonDamage, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.WarlockPoisonDamage - EnemyViewModel.Enemy.Defence);
                             HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
                         }
                         else
                         {
-                            int damage = (int)Math.Max(0, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * PlayerViewModel.Player.Level))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty - EnemyViewModel.Enemy.Defence);
+                            int damage = (int)Math.Max(0, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty - EnemyViewModel.Enemy.Defence);
                             HP2 -= damage;
                         }
                     }
@@ -290,92 +208,6 @@ namespace AmoSim2
             }
 
             return HP2;
-        }
-
-        private void MsgAtakNietrafionyXP()
-        {
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(" uniknął ataku ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtakXP(int HP1, int damage)
-        {
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(" atakuje ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(" i zadaje ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(damage.ToString());
-            BattleLog.Inlines.Add(new Run(" obrażeń! (") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(new Run(HP1.ToString()) { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(new Run(" zostało)") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtakKrytycznyXP(int HP1, int damage)
-        {
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(" w przypływie szału walki atakuje ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(" i zadaje ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(damage.ToString());
-            BattleLog.Inlines.Add(new Run(" obrażeń! (") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(new Run(HP1.ToString()) { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(new Run(" zostało)") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtakOdpartyXP()
-        {
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(" atakuje ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(", lecz ten odpiera atak! ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtakNietrafiony()
-        {
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(" uniknął ataku ") { Foreground = Brushes.Red });
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtak(int HP2, int damage)
-        {
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(" atakuje ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(" i zadaje ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(damage.ToString());
-            BattleLog.Inlines.Add(new Run(" obrażeń! (") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(new Run(HP2.ToString()) { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(new Run(" zostało)") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtakKrytyczny(int HP2, int damage)
-        {
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(" w przypływie szału walki atakuje ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(" i zadaje ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(damage.ToString());
-            BattleLog.Inlines.Add(new Run(" obrażeń! (") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(new Run(HP2.ToString()) { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(new Run(" zostało)") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(Environment.NewLine);
-        }
-
-        private void MsgAtakOdparty()
-        {
-            BattleLog.Inlines.Add(PlayerViewModel.Player.Nickname);
-            BattleLog.Inlines.Add(new Run(" atakuje ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(EnemyViewModel.Enemy.Nickname);
-            BattleLog.Inlines.Add(new Run(", lecz ten odpiera atak! ") { Foreground = Brushes.Green });
-            BattleLog.Inlines.Add(Environment.NewLine);
         }
 
         private void SaveBtnPlayer_Click(object sender, RoutedEventArgs e)
@@ -428,6 +260,14 @@ namespace AmoSim2
                 filter = openFileDialog1.FileName;
                 Session.LoadPlayerData(filter, EnemyViewModel.Enemy);
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(PlayerViewModel.Player.PlayerInicjatywaBase.ToString() +
+                            Environment.NewLine + PlayerViewModel.Player.PlayerInicjatywa.ToString() +
+                            Environment.NewLine + EnemyViewModel.Enemy.EnemyInicjatywaBase.ToString() +
+                            Environment.NewLine + EnemyViewModel.Enemy.EnemyInicjatywa.ToString());
         }
     }
 }

@@ -2,12 +2,16 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace AmoSim2
 {
-    public static class Session
+    public static class Session 
     {
+       
+
         public static string FILE_PATH = AppDomain.CurrentDomain.BaseDirectory + "Player_Data.json";
 
         public static void SavePlayerData(string path, Model obj)
@@ -46,6 +50,7 @@ namespace AmoSim2
                         if (parentProperty.Name == childProperty.Name && parentProperty.PropertyType == childProperty.PropertyType)
                         {
                             childProperty.SetValue(child, parentProperty.GetValue(parent));
+                 
                             break;
                         }
                     }

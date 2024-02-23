@@ -1,6 +1,4 @@
-﻿using AmoSim2.Player;
-using CommonServiceLocator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +16,11 @@ using System.Windows.Shapes;
 namespace AmoSim2.UserControls
 {
     /// <summary>
-    /// Interaction logic for TalizmanList.xaml
+    /// Interaction logic for Equipment.xaml
     /// </summary>
-    public partial class TalizmanList : UserControl
+    public partial class Equipment : UserControl
     {
-        public TalizmanList()
+        public Equipment()
         {
             InitializeComponent();
         }

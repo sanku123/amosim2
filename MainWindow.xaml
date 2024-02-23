@@ -2,9 +2,9 @@
 
   <Grid Height="1170" HorizontalAlignment="Center">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="370" />
+      <ColumnDefinition Width="400" />
       <ColumnDefinition Width="450" />
-      <ColumnDefinition Width="370" />
+      <ColumnDefinition Width="400" />
     </Grid.ColumnDefinitions>
 
     <Grid.RowDefinitions>
@@ -18,43 +18,43 @@
       </StackPanel.Background>
       <Button Content="PVM" Style="{StaticResource MediumButton}" />
       <Button Content="PVP" Style="{StaticResource MediumButton}" />
-      <Button Content="AP Calc" Style="{StaticResource MediumButton}" />
+      <Button Content="TEST" Style="{StaticResource MediumButton}" Click="Button_Click_1" />
     </StackPanel>
 
-    <StackPanel Grid.Row="1" Orientation="Vertical">
-      <uc:CalculatedStats DataContext="{Binding HubViewModel.Player, Source={StaticResource ViewModelLocator}}" />
+        <StackPanel Grid.Row="1" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
+      <uc:CalculatedStats />
       <StackPanel Orientation="Horizontal">
-        <StackPanel DataContext="{Binding HubViewModel, Source={StaticResource ViewModelLocator}}">
+        <StackPanel Width="170">
           <uc:RacesList />
           <uc:ClassList />
           <uc:BlessList />
           <uc:RobeList />
           <uc:KosturyList />
           <uc:SpellsList />
-          <uc:EquipList Visibility="Collapsed" />
-          <uc:TalizmanList />
+          <uc:Equipment />
         </StackPanel>
         <StackPanel>
-          <uc:BasicStats DataContext="{Binding HubViewModel.Player, Source={StaticResource ViewModelLocator}}" />
+          <uc:BasicStats />
+          
         </StackPanel>
       </StackPanel>
     </StackPanel>
 
-    <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
-      <uc:CalculatedStats DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" />
+    <StackPanel Grid.Row="1" Grid.Column="2" DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
+      <uc:CalculatedStats />
       <StackPanel Orientation="Horizontal">
         <StackPanel>
-          <uc:BasicStats DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" />
+          <uc:BasicStats />
+        
         </StackPanel>
-        <StackPanel DataContext="{Binding EnemyViewModel, Source={StaticResource ViewModelLocator}}">
+        <StackPanel Width="170">
           <uc:RacesList />
           <uc:ClassList />
           <uc:BlessList />
           <uc:RobeList />
           <uc:KosturyList />
           <uc:SpellsList />
-          <uc:EquipList Visibility="Collapsed" />
-          <uc:TalizmanList />
+          <uc:Equipment />
         </StackPanel>
       </StackPanel>
     </StackPanel>
@@ -75,65 +75,68 @@
           <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-          <Button x:Name="SaveBtnPlayer" Margin="6" Content="ZAPISZ" Grid.Column="0" Style="{StaticResource LargeButton}" Click="SaveBtnPlayer_Click" Width="60"></Button>
-          <Button x:Name="LoadBtnPlayer" Margin="6" Content="WCZYTAJ" Grid.Column="0" Style="{StaticResource LargeButton}" Click="LoadBtnPlayer_Click" Width="60"></Button>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+          <Button x:Name="SaveBtnPlayer" Grid.Column="0" Width="60" Margin="6" Click="SaveBtnPlayer_Click" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnPlayer" Grid.Column="0" Width="60" Margin="6" Click="LoadBtnPlayer_Click" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-          <Button x:Name="SaveBtnEnemy" Margin="6" Content="ZAPISZ" Grid.Column="0" Style="{StaticResource LargeButton}" Click="SaveBtnEnemy_Click" Width="60"></Button>
-          <Button x:Name="LoadBtnEnemy" Margin="6" Content="WCZYTAJ" Grid.Column="0" Style="{StaticResource LargeButton}" Click="LoadBtnEnemy_Click" Width="60"></Button>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+          <Button x:Name="SaveBtnEnemy" Grid.Column="0" Width="60" Margin="6" Click="SaveBtnEnemy_Click" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnEnemy" Grid.Column="0" Width="60" Margin="6" Click="LoadBtnEnemy_Click" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
-        <Border Grid.Row="2" DataContext="{Binding HubViewModel.Player, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
+        <Border Grid.Row="2" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
           <StackPanel Orientation="Vertical">
-            <Label Content="{Binding Nickname}" Style="{StaticResource CardLabel}" FontSize="18" HorizontalContentAlignment="Center" Foreground="#FFF9DC9C" />
-            <Label Content="{Binding Build}" Style="{StaticResource CardLabel}" HorizontalAlignment="Center" />
+            <Label HorizontalContentAlignment="Center" Content="{Binding Nickname}" FontSize="18" Foreground="#FFF9DC9C" Style="{StaticResource CardLabel}" />
+            <Label HorizontalAlignment="Center" Content="{Binding Build}" Style="{StaticResource CardLabel}" />
           </StackPanel>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1" DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
           <StackPanel Orientation="Vertical">
-            <Label Content="{Binding Nickname}" Style="{StaticResource CardLabel}" FontSize="18" HorizontalContentAlignment="Center" Foreground="#FFF9DC9C" />
-            <Label Content="{Binding Build}" Style="{StaticResource CardLabel}" HorizontalContentAlignment="Center" />
+            <Label HorizontalContentAlignment="Center" Content="{Binding Nickname}" FontSize="18" Foreground="#FFF9DC9C" Style="{StaticResource CardLabel}" />
+            <Label HorizontalContentAlignment="Center" Content="{Binding Build}" Style="{StaticResource CardLabel}" />
           </StackPanel>
         </Border>
 
-        <Label Content="Inicjatywa" VerticalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" Foreground="#FFF9F5F5" Margin="0,8,0,0" />
-        <StackPanel Grid.Row="4" Margin="0,0,0,0" HorizontalAlignment="Center" DataContext="{Binding HubViewModel.Player, Source={StaticResource ViewModelLocator}}" Orientation="Horizontal">
-          <Label Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding PlayerInicjatywaBase, Mode=OneWay}" FontSize="16" FontWeight="Light" Foreground="White" ContentStringFormat="N3" />
-          <Label Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PlayerInicjatywa, Mode=OneWay}" FontSize="24" FontWeight="Light" Foreground="White" FontFamily="Segoe UI Semibold" />
-          <Label HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content=":" FontSize="24" FontWeight="Light" Foreground="White" />
-          <Label Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding EnemyInicjatywa, Mode=OneWay}" FontSize="24" FontWeight="Light" Foreground="White" FontFamily="Segoe UI Semibold" />
-          <Label Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding EnemyInicjatywaBase, StringFormat=N4, Mode=OneWay}" FontSize="16" FontWeight="Light" Foreground="White" ContentStringFormat="N3" />
+        <Label Grid.Row="3" Margin="0,8,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="Inicjatywa" Foreground="#FFF9F5F5" />
+         <StackPanel Grid.Row="4" Margin="0,0,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Label x:Name="PlayerInicjatywaBaseLbl" Content="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"  ContentStringFormat="N3" FontSize="16" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="PlayerInicjatywaLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
+            <Label HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content=":" FontSize="24" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="EnemyInicjatywaLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
+                    <Label x:Name="EnemyInicjatywaBaseLbl" Content="0" Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" HorizontalContentAlignment="Center"  ContentStringFormat="N3" FontSize="16" FontWeight="Light" Foreground="White" />
         </StackPanel>
 
-        <Label Content="Trafienie (%) Gracz vs Przeciwnik" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" Foreground="#FFF9F5F5" Margin="0,8,0,0" />
-        <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" HorizontalAlignment="Center" DataContext="{Binding HubViewModel.Player, Source={StaticResource ViewModelLocator}}" Orientation="Horizontal">
+                
 
-          <Label Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding PlayerHitChance, Mode=OneWay}" ContentStringFormat="{}{0:0}" FontSize="24" FontWeight="Light" Foreground="White" FontFamily="Segoe UI Semibold" />
+        <Label Grid.Row="3" Grid.Column="1" Margin="0,8,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" Content="Trafienie (%) Gracz vs Przeciwnik" Foreground="#FFF9F5F5" />
+        <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" HorizontalAlignment="Center" Orientation="Horizontal">
+          <Label x:Name="PlayerTrafienieLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContentStringFormat="N2" FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
           <Label HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content=":" FontSize="24" FontWeight="Light" Foreground="White" />
-          <Label Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding EnemyHitChance, Mode=OneWay}" FontSize="24" FontWeight="Light" ContentStringFormat="{}{0:0}" Foreground="White" FontFamily="Segoe UI Semibold" />
+                    <Label x:Name="EnemyTrafienieLbl" Content="0" Margin="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ContentStringFormat="N2" FontFamily="Segoe UI Semibold" FontSize="24" FontWeight="Light" Foreground="White" />
         </StackPanel>
-        <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2" x:Name="scrollBattle" VerticalScrollBarVisibility="Hidden">
-          <TextBlock x:Name="BattleLog" Padding="16" Height="auto" Margin="8,16,8,12" TextWrapping="Wrap" Foreground="#FFFCFCFC" FontFamily="Verdana" FontWeight="Bold" Opacity="0.85">
+        <ScrollViewer x:Name="scrollBattle" Grid.Row="5" Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
+          <TextBlock x:Name="BattleLog" Grid.Row="5" Grid.ColumnSpan="2" Height="auto" Margin="8,16,8,12" Padding="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFFCFCFC" Opacity="0.85" TextWrapping="Wrap">
             <TextBlock.Background>
-              <SolidColorBrush Color="White" Opacity="0.03" />
+              <SolidColorBrush Opacity="0.03" Color="White" />
             </TextBlock.Background>
           </TextBlock>
         </ScrollViewer>
-        <Border Height="60" Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource Card}">
+        <Border Grid.Row="6" Grid.ColumnSpan="2" Height="60" Style="{StaticResource Card}">
           <Grid Margin="0,6,0,0">
             <Grid.ColumnDefinitions>
               <ColumnDefinition />
               <ColumnDefinition />
               <ColumnDefinition />
               <ColumnDefinition />
+              <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Margin="6" Content="START" Grid.Column="0" Style="{StaticResource LargeButton}" Click="Button_Click"></Button>
-            <TextBox Margin="6" x:Name="Win_Tb" Grid.Column="1" TextWrapping="Wrap" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FF7CC582" Foreground="White" IsReadOnly="True" Focusable="False" />
-            <TextBox Margin="6" x:Name="Draw_Tb" Grid.Column="2" TextWrapping="Wrap" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFC9A570" Foreground="White" IsReadOnly="True" Focusable="False" />
-            <TextBox Margin="6" x:Name="Lost_Tb" Grid.Column="3" TextWrapping="Wrap" Text="0%" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFBF7B7B" Foreground="White" IsReadOnly="True" Focusable="False" />
+            <Button Grid.Column="0" Margin="6" Click="Update_Click" Content="UPDATE" Style="{StaticResource LargeButton}" />
+            <Button Grid.Column="1" Margin="6" Click="Button_Click" Content="START" Style="{StaticResource LargeButton}" />
+            <TextBox x:Name="Win_Tb" Grid.Column="2" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FF7CC582" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
+            <TextBox x:Name="Draw_Tb" Grid.Column="3" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFC9A570" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
+            <TextBox x:Name="Lost_Tb" Grid.Column="4" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFBF7B7B" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
           </Grid>
         </Border>
       </Grid>

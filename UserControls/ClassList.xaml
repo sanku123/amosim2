@@ -1,17 +1,17 @@
-﻿<UserControl x:Class="AmoSim2.UserControls.ClassList" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:AmoSim2.UserControls" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:player="clr-namespace:AmoSim2.Player" xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" d:DataContext="{d:DesignInstance Type=player:PlayerViewModel}" mc:Ignorable="d">
+﻿<UserControl x:Class="AmoSim2.UserControls.ClassList" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:local="clr-namespace:AmoSim2.UserControls" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:player="clr-namespace:AmoSim2.Player" d:DataContext="{d:DesignInstance Type=player:PlayerViewModel}" mc:Ignorable="d">
 
   <Grid>
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
         <Label Content="KLASY" Style="{StaticResource CardLabel}" />
-        <ListBox Name="ClassLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Classes}">
+        <ComboBox Name="ClassLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Klasy}" SelectedItem="{Binding Class, Mode=TwoWay}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">
-              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=ClassLB,Path=SelectedItem}" Command="{Binding SelectedClassesChangedCommand}" />
+              <ie:InvokeCommandAction CommandParameter="{Binding ElementName=ClassLB, Path=SelectedItem}" />
             </ie:EventTrigger>
           </ie:Interaction.Triggers>
-        </ListBox>
+        </ComboBox>
       </StackPanel>
     </Border>
   </Grid>
