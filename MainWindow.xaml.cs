@@ -156,7 +156,7 @@ namespace AmoSim2
                             int damage = (int)Math.Max(EnemyViewModel.Enemy.BonusŁowcy, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.BonusŁowcy - PlayerViewModel.Player.Defence);
                             HP1 -= damage;
                         }
-                        else if (EnemyViewModel.Enemy.Class == "Czarnoksiężnik" && PlayerViewModel.Player.Race != "Jaszczuroczłek")
+                        else if (EnemyViewModel.Enemy.Class == "Czarnoksiężnik")
                         {
                             int damage = (int)Math.Max(EnemyViewModel.Enemy.WarlockPoisonDamage, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.WarlockPoisonDamage - PlayerViewModel.Player.Defence);
                             HP1 -= damage;
@@ -191,12 +191,12 @@ namespace AmoSim2
                         if (PlayerViewModel.Player.Class == "Łowca" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
                         {
                             int damage = (int)Math.Max(PlayerViewModel.Player.BonusŁowcy, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.BonusŁowcy - EnemyViewModel.Enemy.Defence);
-                            HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
+                            HP2 -= damage;
                         }
-                        else if (PlayerViewModel.Player.Class == "Czarnoksiężnik" && EnemyViewModel.Enemy.Race != "Jaszczuroczłek")
+                        else if (PlayerViewModel.Player.Class == "Czarnoksiężnik")
                         {
                             int damage = (int)Math.Max(PlayerViewModel.Player.WarlockPoisonDamage, (PlayerViewModel.Player.Attack + rnd.Next(1, (int)(5 * pLevel))) * PlayerViewModel.Player.Critical() * PlayerViewModel.Player.ThiefDamagePenalty + PlayerViewModel.Player.WarlockPoisonDamage - EnemyViewModel.Enemy.Defence);
-                            HP2 -= Math.Max(PlayerViewModel.Player.BonusŁowcy, damage);
+                            HP2 -= damage;
                         }
                         else
                         {
