@@ -12,13 +12,20 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
-        <StackPanel DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Grid.Row="0" Grid.ColumnSpan="3">
+        <StackPanel DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" Width="NaN">
 
-            <ProgressBar Value="{Binding ProgressValue}" Minimum="0" Maximum="100" Height="30" Background="#FF232222" Foreground="#FF195224">
+
+            <ProgressBar Value="{Binding ProgressValue}" Minimum="0" Maximum="100" Height="30" Width="1141" Background="#FF232222" Foreground="#FF195224" Margin="5,0,2,0">
                 <ProgressBar.BorderBrush>
                     <SolidColorBrush Color="#FFBCBCBC" Opacity="0"/>
                 </ProgressBar.BorderBrush>
             </ProgressBar>
+
+            <TextBox Text="{Binding TimeTakenInSeconds}" Width="107" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontSize="16" BorderThickness="0,0,0,0">
+                <TextBox.Background>
+                    <SolidColorBrush Color="#FF232222" Opacity="1"/>
+                </TextBox.Background>
+            </TextBox>
 
         </StackPanel>
 
