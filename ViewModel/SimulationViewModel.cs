@@ -2,6 +2,7 @@
 using AmoSim2.Player;
 using CommonServiceLocator;
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using RelayCommand = AmoSim2.Others.RelayCommand;
 
@@ -12,6 +13,18 @@ namespace AmoSim2.ViewModel
         public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
 
         private readonly Random rnd = new Random();
+
+        private double _progressValue;
+        public double ProgressValue
+        {
+            get { return _progressValue; }
+            set { _progressValue = value; OnPropertyChanged(); }
+        }
+
+        private void ReportProgress(double value)
+        {
+            ProgressValue = value;
+        }
 
         private int _winCount;
         public int WinCount
@@ -68,22 +81,47 @@ namespace AmoSim2.ViewModel
             LostCount = 0;
             DrawCount = 0;
 
+            // Reset progress value
+            ProgressValue = 0;
+
+            // Run simulation in a background worker
             int iterations = 20000;
 
-            for (int i = 0; i < iterations; i++)
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += (sender, e) =>
             {
-                BeginFastSimulation();
-            }
 
-            // Calculate percentages and update UI
-            double winPercentage = (double)WinCount / iterations * 100;
-            double lostPercentage = (double)LostCount / iterations * 100;
-            double drawPercentage = (double)DrawCount / iterations * 100;
+                for (int i = 0; i < iterations; i++)
+                {
+                    BeginFastSimulation();
 
-            // Update properties
-            WinPercentageText = winPercentage.ToString("0.00") + "%";
-            LostPercentageText = lostPercentage.ToString("0.00") + "%";
-            DrawPercentageText = drawPercentage.ToString("0.00") + "%";
+                    // Report progress
+                    double progress = ((double)i / iterations) * 100;
+                    worker.ReportProgress((int)progress);
+                }
+            };
+            worker.ProgressChanged += (sender, e) =>
+            {
+                // Update progress bar
+                ReportProgress(e.ProgressPercentage);
+            };
+            worker.RunWorkerCompleted += (sender, e) =>
+            {
+                // Simulation completed, update UI or do any post-processing
+                // Calculate percentages and update UI
+                double winPercentage = (double)WinCount / iterations * 100;
+                double lostPercentage = (double)LostCount / iterations * 100;
+                double drawPercentage = (double)DrawCount / iterations * 100;
+
+                // Update properties
+                WinPercentageText = winPercentage.ToString("0.00") + "%";
+                LostPercentageText = lostPercentage.ToString("0.00") + "%";
+                DrawPercentageText = drawPercentage.ToString("0.00") + "%";
+            };
+            worker.RunWorkerAsync();
+
+            
         }
 
         private void BeginFastSimulation()
