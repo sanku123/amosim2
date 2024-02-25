@@ -12,7 +12,15 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
-    
+        <StackPanel DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Grid.Row="0" Grid.ColumnSpan="3">
+
+            <ProgressBar Value="{Binding ProgressValue}" Minimum="0" Maximum="100" Height="30" Background="#FF232222" Foreground="#FF195224">
+                <ProgressBar.BorderBrush>
+                    <SolidColorBrush Color="#FFBCBCBC" Opacity="0"/>
+                </ProgressBar.BorderBrush>
+            </ProgressBar>
+
+        </StackPanel>
 
         <StackPanel Grid.Row="1" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
       <uc:CalculatedStats />
