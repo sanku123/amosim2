@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using GalaSoft.MvvmLight.Command;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AmoSim2.ViewModel
 {
@@ -31,5 +33,16 @@ namespace AmoSim2.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+        protected RelayCommand _saveCommand;
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(Save));
+
+        protected RelayCommand _loadCommand;
+        public ICommand LoadCommand => _loadCommand ?? (_loadCommand = new RelayCommand(Load));
+
+        protected virtual void Save() { }
+
+        protected virtual void Load() { }
     }
 }

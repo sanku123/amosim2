@@ -1,4 +1,5 @@
 ﻿using AmoSim2.Others;
+using Microsoft.Win32;
 using Prism.Commands;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,10 +10,34 @@ namespace AmoSim2.Player
 {
     public class EnemyViewModel : CommandViewModel
     {
-        public static EnemyViewModel Instance { get; } = new EnemyViewModel();
 
         public Model Enemy { get; set; }
 
+        protected override void Save()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            string filter = "Json files (*.json)|*.json";
+            saveFileDialog1.Filter = filter;
+
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                string fileName = saveFileDialog1.FileName;
+                Session.SavePlayerData(fileName, Enemy);
+            }
+        }
+        protected override void Load()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            string filter = "Json files (*.json)|*.json";
+            openFileDialog1.Filter = filter;
+
+            if (openFileDialog1.ShowDialog() == true)
+            {
+
+                string fileName = openFileDialog1.FileName;
+                Session.LoadPlayerData(fileName, Enemy);
+            }
+        }
         public EnemyViewModel()
         {
             Enemy = new Model

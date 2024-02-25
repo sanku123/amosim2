@@ -1,10 +1,9 @@
 ﻿using AmoSim2.Player;
+using AmoSim2.ViewModel;
 using CommonServiceLocator;
 using Microsoft.Win32;
 using System;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
 
 namespace AmoSim2
 {
@@ -14,8 +13,12 @@ namespace AmoSim2
     public partial class MainWindow : Window
     {
         public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
-
+        
         public EnemyViewModel EnemyViewModel => ServiceLocator.Current.GetInstance<EnemyViewModel>();
+
+
+        public EnemyViewModel enemy = new EnemyViewModel();
+
 
         private readonly Random rnd = new Random();
 
@@ -28,21 +31,6 @@ namespace AmoSim2
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void MyWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-        }
-
-        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            PlayerViewModel.Player.Race = "";
-            PlayerViewModel.Player.Class = "";
-             PlayerViewModel.Player.SelectedKostur = "";
-            PlayerViewModel.Player.SelectedRobe = "";
-            PlayerViewModel.Player.SelectedBlessing = "";
-            PlayerViewModel.Player.SelectedCzar1 = "";
-            PlayerViewModel.Player.SelectedCzar2 = "";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,13 +53,15 @@ namespace AmoSim2
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
-            PlayerInicjatywaBaseLbl.Content = PlayerViewModel.Player.PlayerInicjatywaBase.ToString();
-            PlayerInicjatywaLbl.Content = PlayerViewModel.Player.PlayerInicjatywa.ToString();
-            EnemyInicjatywaBaseLbl.Content = EnemyViewModel.Enemy.EnemyInicjatywaBase.ToString();
-            EnemyInicjatywaLbl.Content = EnemyViewModel.Enemy.EnemyInicjatywa.ToString();
+            var player = PlayerViewModel.Player;
+            var enemy = EnemyViewModel.Enemy;
 
-            PlayerTrafienieLbl.Content = PlayerViewModel.Player.PlayerHitChance.ToString();
-            EnemyTrafienieLbl.Content = EnemyViewModel.Enemy.EnemyHitChance.ToString();
+            PlayerInicjatywaBaseLbl.Content = player.PlayerInicjatywaBase.ToString();
+            PlayerInicjatywaLbl.Content = player.PlayerInicjatywa.ToString();
+            EnemyInicjatywaBaseLbl.Content = enemy.EnemyInicjatywaBase.ToString();
+            EnemyInicjatywaLbl.Content = enemy.EnemyInicjatywa.ToString();
+            PlayerTrafienieLbl.Content = player.PlayerHitChance.ToString();
+            EnemyTrafienieLbl.Content = enemy.EnemyHitChance.ToString();
         }
 
         private void BeginFastSimulation()
@@ -138,32 +128,35 @@ namespace AmoSim2
 
         private int PerformEnemyAttackMulti(int HP1)
         {
-            int eLevel = (int)Math.Max(1, EnemyViewModel.Enemy.Level);
-            double enemyHitChance = Math.Max(2, EnemyViewModel.Enemy.EnemyHitChance);
+            var player = PlayerViewModel.Player;
+            var enemy = EnemyViewModel.Enemy;
 
-            for (int y = 0; y < EnemyViewModel.Enemy.EnemyInicjatywa && (HP1 > 0); y++)
+            int enemyLevel = (int)Math.Max(1, enemy.Level);
+            double enemyHitChance = Math.Max(2, enemy.EnemyHitChance);
+
+            for (int y = 0; y < enemy.EnemyInicjatywa && (HP1 > 0); y++)
             {
                 if (enemyHitChance >= rnd.Next(1, 101))
                 {
-                    if (PlayerViewModel.Player.BlockChance >= rnd.Next(1, 101))
+                    if (player.BlockChance >= rnd.Next(1, 101))
                     {
                         continue;
                     }
                     else
                     {
-                        if (EnemyViewModel.Enemy.Class == "Łowca" && PlayerViewModel.Player.Race != "Jaszczuroczłek")
+                        if (enemy.Class == "Łowca" && player.Race != "Jaszczuroczłek")
                         {
-                            int damage = (int)Math.Max(EnemyViewModel.Enemy.BonusŁowcy, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.BonusŁowcy - PlayerViewModel.Player.Defence);
+                            int damage = (int)Math.Max(enemy.BonusŁowcy, (enemy.Attack + rnd.Next(1, (int)(5 * enemyLevel))) * enemy.Critical() * enemy.ThiefDamagePenalty + enemy.BonusŁowcy - player.Defence);
                             HP1 -= damage;
                         }
-                        else if (EnemyViewModel.Enemy.Class == "Czarnoksiężnik")
+                        else if (enemy.Class == "Czarnoksiężnik")
                         {
-                            int damage = (int)Math.Max(EnemyViewModel.Enemy.WarlockPoisonDamage, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty + EnemyViewModel.Enemy.WarlockPoisonDamage - PlayerViewModel.Player.Defence);
+                            int damage = (int)Math.Max(enemy.WarlockPoisonDamage, (enemy.Attack + rnd.Next(1, (int)(5 * enemyLevel))) * enemy.Critical() * enemy.ThiefDamagePenalty + enemy.WarlockPoisonDamage - player.Defence);
                             HP1 -= damage;
                         }
                         else
                         {
-                            int damage = (int)Math.Max(0, (EnemyViewModel.Enemy.Attack + rnd.Next(1, (int)(5 * eLevel))) * EnemyViewModel.Enemy.Critical() * EnemyViewModel.Enemy.ThiefDamagePenalty - PlayerViewModel.Player.Defence);
+                            int damage = (int)Math.Max(0, (enemy.Attack + rnd.Next(1, (int)(5 * enemyLevel))) * enemy.Critical() * enemy.ThiefDamagePenalty - player.Defence);
                             HP1 -= damage;
                         }
                     }
@@ -208,66 +201,6 @@ namespace AmoSim2
             }
 
             return HP2;
-        }
-
-        private void SaveBtnPlayer_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            string filter = "Json files (*.json)|*.json";
-            saveFileDialog1.Filter = filter;
-
-            if (saveFileDialog1.ShowDialog() == true)
-            {
-                filter = saveFileDialog1.FileName;
-                Session.SavePlayerData(filter, PlayerViewModel.Player);
-            }
-        }
-
-        private void SaveBtnEnemy_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            string filter = "Json files (*.json)|*.json";
-            saveFileDialog1.Filter = filter;
-
-            if (saveFileDialog1.ShowDialog() == true)
-            {
-                filter = saveFileDialog1.FileName;
-                Session.SavePlayerData(filter, EnemyViewModel.Enemy);
-            }
-        }
-
-        private void LoadBtnPlayer_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            string filter = "Json files (*.json)|*.json";
-            openFileDialog1.Filter = filter;
-
-            if (openFileDialog1.ShowDialog() == true)
-            {
-                filter = openFileDialog1.FileName;
-                Session.LoadPlayerData(filter, PlayerViewModel.Player);
-            }
-        }
-
-        private void LoadBtnEnemy_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            string filter = "Json files (*.json)|*.json";
-            openFileDialog1.Filter = filter;
-
-            if (openFileDialog1.ShowDialog() == true)
-            {
-                filter = openFileDialog1.FileName;
-                Session.LoadPlayerData(filter, EnemyViewModel.Enemy);
-            }
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(PlayerViewModel.Player.PlayerInicjatywaBase.ToString() +
-                            Environment.NewLine + PlayerViewModel.Player.PlayerInicjatywa.ToString() +
-                            Environment.NewLine + EnemyViewModel.Enemy.EnemyInicjatywaBase.ToString() +
-                            Environment.NewLine + EnemyViewModel.Enemy.EnemyInicjatywa.ToString());
-        }
+        }        
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="AmoSim2.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cc="clr-namespace:AmoSim2.Others" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:AmoSim2" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:prism="http://prismlibrary.com/" xmlns:uc="clr-namespace:AmoSim2.UserControls" xmlns:vm="clr-namespace:AmoSim2.Player" xmlns:vm1="clr-namespace:AmoSim2.ViewModel" x:Name="MyWindow" Title="MainWindow" Width="1900" Height="1200" Background="#FF060606" Closing="MyWindow_Closing" Loaded="MyWindow_Loaded" WindowStartupLocation="Manual" WindowState="Maximized" mc:Ignorable="d">
+﻿<Window x:Class="AmoSim2.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cc="clr-namespace:AmoSim2.Others" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:AmoSim2" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:prism="http://prismlibrary.com/" xmlns:uc="clr-namespace:AmoSim2.UserControls" xmlns:vm="clr-namespace:AmoSim2.Player" xmlns:vm1="clr-namespace:AmoSim2.ViewModel" x:Name="MyWindow" Title="MainWindow" Width="1900" Height="1200" Background="#FF060606" WindowStartupLocation="Manual" WindowState="Maximized" mc:Ignorable="d">
 
   <Grid Height="1170" HorizontalAlignment="Center">
     <Grid.ColumnDefinitions>
@@ -12,14 +12,7 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
-    <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal">
-      <StackPanel.Background>
-        <SolidColorBrush Opacity="0.05" Color="White" />
-      </StackPanel.Background>
-      <Button Content="PVM" Style="{StaticResource MediumButton}" />
-      <Button Content="PVP" Style="{StaticResource MediumButton}" />
-      <Button Content="TEST" Style="{StaticResource MediumButton}" Click="Button_Click_1" />
-    </StackPanel>
+    
 
         <StackPanel Grid.Row="1" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
       <uc:CalculatedStats />
@@ -75,14 +68,14 @@
           <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-          <Button x:Name="SaveBtnPlayer" Grid.Column="0" Width="60" Margin="6" Click="SaveBtnPlayer_Click" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
-          <Button x:Name="LoadBtnPlayer" Grid.Column="0" Width="60" Margin="6" Click="LoadBtnPlayer_Click" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
+        <StackPanel DataContext="{Binding PlayerViewModel, Source={StaticResource ViewModelLocator}}" HorizontalAlignment="Center" Orientation="Horizontal">
+          <Button x:Name="SaveBtnPlayer" Command="{Binding SaveCommand}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnPlayer" Command="{Binding LoadCommand}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-          <Button x:Name="SaveBtnEnemy" Grid.Column="0" Width="60" Margin="6" Click="SaveBtnEnemy_Click" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
-          <Button x:Name="LoadBtnEnemy" Grid.Column="0" Width="60" Margin="6" Click="LoadBtnEnemy_Click" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
+        <StackPanel DataContext="{Binding EnemyViewModel, Source={StaticResource ViewModelLocator}}" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+          <Button x:Name="SaveBtnEnemy" Command="{Binding SaveCommand}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnEnemy" Command="{Binding LoadCommand}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
         <Border Grid.Row="2" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">

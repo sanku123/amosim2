@@ -1,4 +1,6 @@
 ﻿using AmoSim2.Others;
+using AmoSim2.ViewModel;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Prism.Commands;
 using System;
@@ -11,11 +13,32 @@ namespace AmoSim2.Player
 {
     public class PlayerViewModel : CommandViewModel
     {
-        public static PlayerViewModel Instance { get; } = new PlayerViewModel();
-
         public Model Player { get; set; }
+        protected override void Save()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            string filter = "Json files (*.json)|*.json";
+            saveFileDialog1.Filter = filter;
 
-        
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                string fileName = saveFileDialog1.FileName;
+                Session.SavePlayerData(fileName, Player);
+            }
+        }
+        protected override void Load()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            string filter = "Json files (*.json)|*.json";
+            openFileDialog1.Filter = filter;
+
+            if (openFileDialog1.ShowDialog() == true)
+            {
+
+                string fileName = openFileDialog1.FileName;
+                Session.LoadPlayerData(fileName, Player);
+            }
+        }
         public PlayerViewModel()
         {
             Player = new Model
