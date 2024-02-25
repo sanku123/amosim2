@@ -529,7 +529,7 @@
         <Setter Property="Padding" Value="6,3,5,3" />
         <Setter Property="Margin" Value="12,3,0,0" />
 
-        <Setter Property="Width" Value="125" />
+        <Setter Property="Width" Value="150" />
         <Setter Property="Height" Value="26" />
 
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
