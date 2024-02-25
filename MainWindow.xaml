@@ -32,7 +32,7 @@
         <StackPanel Grid.Row="1" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
       <uc:CalculatedStats />
       <StackPanel Orientation="Horizontal">
-        <StackPanel Width="170">
+        <StackPanel Width="195">
           <uc:RacesList />
           <uc:ClassList />
           <uc:BlessList />
@@ -55,7 +55,7 @@
           <uc:BasicStats />
         
         </StackPanel>
-        <StackPanel Width="170">
+        <StackPanel Width="195">
           <uc:RacesList />
           <uc:ClassList />
           <uc:BlessList />
@@ -70,7 +70,7 @@
     <StackPanel Grid.Row="1" Grid.Column="1">
       <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition />
+          <RowDefinition Height="71"/>
           <RowDefinition />
           <RowDefinition />
           <RowDefinition />
@@ -84,13 +84,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding PlayerViewModel, Source={StaticResource ViewModelLocator}}" HorizontalAlignment="Center" Orientation="Horizontal">
-          <Button x:Name="SaveBtnPlayer" Command="{Binding SaveCommand}" CommandParameter="{Binding Player}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
-          <Button x:Name="LoadBtnPlayer" Command="{Binding LoadCommand}" CommandParameter="{Binding Player}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="SaveBtnPlayer" Command="{Binding SaveCommand}" CommandParameter="{Binding Player}" Grid.Column="0" Width="105" Margin="4,4,0,4" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnPlayer" Command="{Binding LoadCommand}" CommandParameter="{Binding Player}" Grid.Column="0" Width="105" Margin="4,4,0,4" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
         <StackPanel DataContext="{Binding PlayerViewModel, Source={StaticResource ViewModelLocator}}" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-          <Button x:Name="SaveBtnEnemy" Command="{Binding SaveCommand}" CommandParameter="{Binding Enemy}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
-          <Button x:Name="LoadBtnEnemy" Command="{Binding LoadCommand}" CommandParameter="{Binding Enemy}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="SaveBtnEnemy" Command="{Binding SaveCommand}" CommandParameter="{Binding Enemy}" Grid.Column="0" Width="105" Margin="4,4,0,4" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnEnemy" Command="{Binding LoadCommand}" CommandParameter="{Binding Enemy}" Grid.Column="0" Width="105" Margin="4,4,0,4" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
         <Border Grid.Row="2" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
