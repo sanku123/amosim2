@@ -14,9 +14,8 @@ namespace AmoSim2.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<EnemyViewModel>();
             SimpleIoc.Default.Register<PlayerViewModel>();
-            SimpleIoc.Default.Register<HubViewModel>();
+            SimpleIoc.Default.Register<SimulationViewModel>();
 
         }
 
@@ -32,10 +31,8 @@ namespace AmoSim2.ViewModel
         }
 
         public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
+        public SimulationViewModel SimulationViewModel => ServiceLocator.Current.GetInstance<SimulationViewModel>();
 
-        public EnemyViewModel EnemyViewModel => ServiceLocator.Current.GetInstance<EnemyViewModel>();
-
-        public HubViewModel HubViewModel => ServiceLocator.Current.GetInstance<HubViewModel>();
 
     }
 }
