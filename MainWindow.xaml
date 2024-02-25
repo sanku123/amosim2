@@ -33,7 +33,7 @@
       </StackPanel>
     </StackPanel>
 
-    <StackPanel Grid.Row="1" Grid.Column="2" DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
+    <StackPanel Grid.Row="1" Grid.Column="2" DataContext="{Binding PlayerViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Orientation="Vertical">
       <uc:CalculatedStats />
       <StackPanel Orientation="Horizontal">
         <StackPanel>
@@ -69,13 +69,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding PlayerViewModel, Source={StaticResource ViewModelLocator}}" HorizontalAlignment="Center" Orientation="Horizontal">
-          <Button x:Name="SaveBtnPlayer" Command="{Binding SaveCommand}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
-          <Button x:Name="LoadBtnPlayer" Command="{Binding LoadCommand}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="SaveBtnPlayer" Command="{Binding SaveCommand}" CommandParameter="{Binding Player}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnPlayer" Command="{Binding LoadCommand}" CommandParameter="{Binding Player}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
-        <StackPanel DataContext="{Binding EnemyViewModel, Source={StaticResource ViewModelLocator}}" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-          <Button x:Name="SaveBtnEnemy" Command="{Binding SaveCommand}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
-          <Button x:Name="LoadBtnEnemy" Command="{Binding LoadCommand}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
+        <StackPanel DataContext="{Binding PlayerViewModel, Source={StaticResource ViewModelLocator}}" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+          <Button x:Name="SaveBtnEnemy" Command="{Binding SaveCommand}" CommandParameter="{Binding Enemy}" Grid.Column="0" Width="60" Margin="6" Content="ZAPISZ" Style="{StaticResource LargeButton}" />
+          <Button x:Name="LoadBtnEnemy" Command="{Binding LoadCommand}" CommandParameter="{Binding Enemy}" Grid.Column="0" Width="60" Margin="6" Content="WCZYTAJ" Style="{StaticResource LargeButton}" />
         </StackPanel>
 
         <Border Grid.Row="2" DataContext="{Binding PlayerViewModel.Player, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
@@ -85,7 +85,7 @@
           </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="1" DataContext="{Binding EnemyViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
+        <Border Grid.Row="2" Grid.Column="1" DataContext="{Binding PlayerViewModel.Enemy, Source={StaticResource ViewModelLocator}}" Style="{StaticResource Card}">
           <StackPanel Orientation="Vertical">
             <Label HorizontalContentAlignment="Center" Content="{Binding Nickname}" FontSize="18" Foreground="#FFF9DC9C" Style="{StaticResource CardLabel}" />
             <Label HorizontalContentAlignment="Center" Content="{Binding Build}" Style="{StaticResource CardLabel}" />
@@ -126,10 +126,10 @@
               <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Margin="6" Click="Update_Click" Content="UPDATE" Style="{StaticResource LargeButton}" />
-            <Button Grid.Column="1" Margin="6" Click="Button_Click" Content="START" Style="{StaticResource LargeButton}" />
-            <TextBox x:Name="Win_Tb" Grid.Column="2" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FF7CC582" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
-            <TextBox x:Name="Draw_Tb" Grid.Column="3" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFC9A570" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
-            <TextBox x:Name="Lost_Tb" Grid.Column="4" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFBF7B7B" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" Text="0%" TextWrapping="Wrap" />
+            <Button Grid.Column="1" Margin="6" DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Command="{Binding StartSimulationCommand}" Content="START" Style="{StaticResource LargeButton}" />
+            <TextBox x:Name="Win_Tb" DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Text="{Binding WinPercentageText}" Grid.Column="2" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FF7CC582" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" TextWrapping="Wrap" />
+            <TextBox x:Name="Draw_Tb" DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Text="{Binding DrawPercentageText}" Grid.Column="3" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFC9A570" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" TextWrapping="Wrap" />
+            <TextBox x:Name="Lost_Tb" DataContext="{Binding SimulationViewModel, Source={StaticResource ViewModelLocator}}" Text="{Binding LostPercentageText}" Grid.Column="4" Margin="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFBF7B7B" Focusable="False" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="White" IsReadOnly="True" TextWrapping="Wrap" />
           </Grid>
         </Border>
       </Grid>

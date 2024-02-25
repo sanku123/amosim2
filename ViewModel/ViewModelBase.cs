@@ -35,14 +35,14 @@ namespace AmoSim2.ViewModel
         }
 
 
-        protected RelayCommand _saveCommand;
-        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand(Save));
+        protected ICommand _saveCommand;
+        public ICommand SaveCommand => _saveCommand ?? (_saveCommand = new RelayCommand<object>(Save));
 
-        protected RelayCommand _loadCommand;
-        public ICommand LoadCommand => _loadCommand ?? (_loadCommand = new RelayCommand(Load));
+        private ICommand _loadCommand;
+        public ICommand LoadCommand => _loadCommand ?? (_loadCommand = new RelayCommand<object>(Load));
 
-        protected virtual void Save() { }
+        protected virtual void Save(object profile) { }
 
-        protected virtual void Load() { }
+        protected virtual void Load(object profile) { }
     }
 }
