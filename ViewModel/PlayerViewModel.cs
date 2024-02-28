@@ -21,8 +21,55 @@ namespace AmoSim2.Player
         {
             Player = InitializeCharacter("Gracz");
             Enemy = InitializeCharacter("Przeciwnik");
-        }
 
+            Enemy.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(Enemy.EvasionFull))
+                {
+                    UpdatePlayerHitChance();
+                }
+            };
+
+            Player.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(Player.EvasionFull))
+                {
+                    UpdateEnemyHitChance();
+                }
+            };
+
+            Enemy.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(Enemy.BattleSpeed))
+                {
+                    UpdatePlayerInicjatywa();
+                }
+            };
+
+            Player.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(Player.BattleSpeed))
+                {
+                    UpdateEnemyInicjatywa();
+                }
+            };
+        }
+        private void UpdatePlayerHitChance()
+        {
+            Player.PlayerHitChance = Player.CalculateHitChance(Player.HitAbility, Enemy.EvasionFull);
+        }
+        private void UpdateEnemyHitChance()
+        {
+            Enemy.EnemyHitChance = Player.CalculateHitChance(Enemy.EvasionFull, Player.HitAbility);
+        }
+        private void UpdatePlayerInicjatywa()
+        {
+            Player.PlayerInicjatywa = Player.GetInicjatywa(Player.PlayerInicjatywaBase);
+        }
+        private void UpdateEnemyInicjatywa()
+        {
+            Enemy.EnemyInicjatywa = Player.GetInicjatywa(Enemy.EnemyInicjatywaBase);
+        }
         private Model InitializeCharacter(string nickname)
         {
             return new Model
