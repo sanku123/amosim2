@@ -4,7 +4,7 @@
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
         <Label Content="KLASY" Style="{StaticResource CardLabel}" />
-        <ComboBox Name="ClassLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Klasy}" SelectedItem="{Binding Class, Mode=TwoWay}">
+        <ComboBox Name="ClassLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" ItemsSource="{Binding Classes}" SelectedItem="{Binding Class, Mode=TwoWay}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">

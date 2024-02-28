@@ -57,7 +57,7 @@ namespace AmoSim2.Player
         {
             get
             {
-                double value = CombatSkill + TrafienieBless + Level + (Vampirism * (Level / 320));
+                double value = CombatSkill + HitAbilityBless + Level + (Vampirism * (Level / 320));
 
                 if (Warrior) return value + (double)Math.Round((0.25 + (Level / 5800)) * Strength, 2);
                 else if (Archer) return value + (double)Math.Round((0.25 + (Level / 1950)) * Agility, 2);
@@ -72,7 +72,7 @@ namespace AmoSim2.Player
             get
             {
                 if (Warrior) return Strength + WeaponDMG + HumanAttackBonus + DwarfAttackBonus;
-                else if (Mage) return Inteligence * CzarDMG;
+                else if (Mage) return Inteligence * SpellDamage;
                 else if (Archer) return ((Agility * 0.8) + BonusAbove200Level(2) + WeaponDMG) * ThiefDamagePenalty;
                 return 0;
             }
@@ -80,17 +80,17 @@ namespace AmoSim2.Player
 
         [JsonIgnore]
         public double Defence => Class == "Mag" || Class == "Czarnoksiężnik"
-                   ? (WillPower * CzarDEF) + BonusAbove200Level(2) + KrasnoludzkaSzata
+                   ? (WillPower * SpellDefence) + BonusAbove200Level(2) + DwarfRobe
                    : Toughness + EQdefence + BarbarianDefence + HumanDefenceFromEQ;
 
         [JsonIgnore]
         public double EvasionFull => Class == "Mag" || Class == "Czarnoksiężnik"
-                    ? (0.45 * Speed) + EvasionSkill + UnikiBless + HobbickaSzata + MageEvasion + Level
-                    : Math.Round((0.45 * Speed) + (0.45 * WeaponSpeed) + EQevasion + Level + EvasionSkill + UnikiBless + ThiefEvasion, 2);
+                    ? (0.45 * Speed) + EvasionSkill + EvasionBless + HobbyteRobe + MageEvasion + Level
+                    : Math.Round((0.45 * Speed) + (0.45 * WeaponSpeed) + EQevasion + Level + EvasionSkill + EvasionBless + ThiefEvasion, 2);
 
         [JsonIgnore]
         public double BattleSpeed => Class == "Mag" || Class == "Czarnoksiężnik"
-                    ? Speed * (1 + CzarSpeed_1_4 + CzarSpeed_1_1) + Level
+                    ? Speed * (1 + SpellSpeed_1_4 + SpellSpeed_1_1) + Level
                     : (BaseSpeed - BonusAbove200Level(2)) * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
 
         [JsonIgnore]

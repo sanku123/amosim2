@@ -7,7 +7,7 @@
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
         <Label Content="KSIĘGA ZAKLĘĆ" Style="{StaticResource CardLabel}" />
-        <ComboBox Name="CzaryLB1" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedCzar1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Czary1}">
+        <ComboBox Name="CzaryLB1" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedFirstSpellSlot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding FirstSpellSlot}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">
@@ -15,7 +15,7 @@
             </ie:EventTrigger>
           </ie:Interaction.Triggers>
         </ComboBox>
-        <ComboBox Name="CzaryLB2" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedCzar2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Czary2}">
+        <ComboBox Name="CzaryLB2" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedSecondSpellSlot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding SecondSpellSlot}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">

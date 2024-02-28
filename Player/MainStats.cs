@@ -20,10 +20,10 @@ namespace AmoSim2.Player
         [JsonIgnore]
         public double Agility => BaseAgility + AgilityBless;
         [JsonIgnore]
-        public double Speed => (BaseSpeed - BonusAbove200Level(2)) + BonusAbove200Level(2) + SpeedBless + KosturSpeed;
+        public double Speed => (BaseSpeed - BonusAbove200Level(2)) + BonusAbove200Level(2) + SpeedBless + StaffSpeed;
         [JsonIgnore]
-        public double Inteligence => BaseInteligence + InteligenceBless + KosturDMG;
+        public double Inteligence => BaseInteligence + InteligenceBless + StaffDamage;
         [JsonIgnore]
-        public double WillPower => BaseWillPower + WillPowerBless + KosturDEF;
+        public double WillPower => BaseWillPower + WillPowerBless + StaffDefence;
     }
 }

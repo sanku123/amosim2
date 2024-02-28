@@ -5,7 +5,7 @@
       <StackPanel Orientation="Vertical">
         <Label Content="RASY" Style="{StaticResource CardLabel}" />
 
-        <ComboBox Name="RaceLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" ItemsSource="{Binding Rasy}" SelectedItem="{Binding Race, Mode=TwoWay}">
+        <ComboBox Name="RaceLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" ItemsSource="{Binding Races}" SelectedItem="{Binding Race, Mode=TwoWay}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">

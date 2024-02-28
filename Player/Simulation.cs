@@ -21,7 +21,7 @@ namespace AmoSim2.Player
         private double CalculateHitChance(double attackerAbility, double defenderEvasion)
         {
             double val = Math.Round(((Math.Log10(attackerAbility + 200) - Math.Log10(defenderEvasion + 200)) * 500) + 50, 2);
-            return Math.Min(val, 98); // Ensure the value does not exceed 98
+            return Math.Min(val, 98); 
         }
         public double PlayerInicjatywaBase => Math.Round(PlayerViewModel.Player.BattleSpeed / PlayerViewModel.Enemy.BattleSpeed, 3);
 
