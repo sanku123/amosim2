@@ -6,11 +6,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace AmoSim2
+namespace AmoSim2.Others
 {
-    public static class Session 
+    public static class Session
     {
-       
+
 
         public static string FILE_PATH = AppDomain.CurrentDomain.BaseDirectory + "Player_Data.json";
 
@@ -50,7 +50,7 @@ namespace AmoSim2
                         if (parentProperty.Name == childProperty.Name && parentProperty.PropertyType == childProperty.PropertyType)
                         {
                             childProperty.SetValue(child, parentProperty.GetValue(parent));
-                 
+
                             break;
                         }
                     }

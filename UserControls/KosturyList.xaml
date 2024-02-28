@@ -6,7 +6,7 @@
     <Border Style="{StaticResource Card}">
       <StackPanel Orientation="Vertical">
         <Label Content="KOSTURY" Style="{StaticResource CardLabel}" />
-        <ComboBox Name="KosturyLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedKostur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Kostury}">
+        <ComboBox Name="KosturyLB" Padding="6,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="White" SelectedItem="{Binding SelectedStaff, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Staffs}">
 
           <ie:Interaction.Triggers>
             <ie:EventTrigger EventName="SelectionChanged">

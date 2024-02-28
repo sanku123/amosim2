@@ -8,8 +8,18 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
-        public string Race { get; set; }
+        public List<string> Races => new List<String> 
+        {   "", 
+            "Człowiek", 
+            "Krasnolud", 
+            "Elf", 
+            "Jaszczuroczłek", 
+            "Hobbit", 
+            "Gnom", 
+            "Wampir", 
+            "Wilkołak" 
+        };
 
-        public List<string> Rasy => new List<String> { "", "Człowiek", "Krasnolud", "Elf", "Jaszczuroczłek", "Hobbit", "Gnom", "Wampir", "Wilkołak" };
+        public string Race { get; set; }
     }
 }

@@ -8,10 +8,19 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
-        public List<string> Klasy => new List<String> { "", "Wojownik", "Paladyn", "Barbarzyńca", "Mag", "Złodziej", "Łowca", "Czarnoksiężnik" };
+        public List<string> Classes => new List<String> 
+        { 
+            "", 
+            "Wojownik", 
+            "Paladyn", 
+            "Barbarzyńca", 
+            "Mag", 
+            "Złodziej", 
+            "Łowca", 
+            "Czarnoksiężnik" 
+        };
 
         private string _class;
-
         public string Class
         {
             get => _class;
@@ -32,9 +41,9 @@ namespace AmoSim2.Player
                     default:
                         MageControlsVisibility = false;
                         MeleeControlsVisibility = true;
-                        ResetKostury();
-                        ResetSpells1();
-                        ResetSpells2();
+                        ResetStaffs();
+                        ResetFirstSpellSlot();
+                        ResetSecondSpellSlot();
                         break;
                 }
             }

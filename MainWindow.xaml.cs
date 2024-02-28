@@ -13,13 +13,12 @@ namespace AmoSim2
     public partial class MainWindow : Window
     {
         public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
-        
 
         public MainWindow()
         {
             InitializeComponent();
         }
-     
+    
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             var player = PlayerViewModel.Player;

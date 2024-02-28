@@ -7,30 +7,27 @@ namespace AmoSim2.Player
 {
     public partial class Model : ViewModelBase
     {
+        public List<string> Blessings { get; } = new List<string>
+        {
+            "",
+            "Siła",
+            "Wytrzymałość",
+            "Zręczność",
+            "Szybkość",
+            "Inteligencja",
+            "Siła Woli",
+            "Trafienie",
+            "Uniki"
+        };
+        
         [JsonIgnore] public bool StrengthBlessActive { get; set; }
         [JsonIgnore] public bool ToughnessBlessActive { get; set; }
         [JsonIgnore] public bool AgilityBlessActive { get; set; }
         [JsonIgnore] public bool SpeedBlessActive { get; set; }
         [JsonIgnore] public bool InteligenceBlessActive { get; set; }
         [JsonIgnore] public bool WillPowerBlessActive { get; set; }
-        [JsonIgnore] public bool TrafienieBlessActive { get; set; }
-        [JsonIgnore] public bool UnikiBlessActive { get; set; }
-
-        [JsonIgnore]
-        public double Modificator
-        {
-            get
-            {
-                return Race == "Wampir" && VampireBlessActive ? 1.5 :
-                       Race == "Człowiek" && Class == "Paladyn" ? 2.5 :
-                       1;
-            }
-        }
-
-        private const double BlessMultiplier = 6;
-
-        private double CalculateBless(bool isActive) => isActive ? BlessMultiplier * Level * Modificator : 0;
-        private double CalculateSpecialBless(bool isActive) => isActive ? BlessMultiplier * Level * Modificator / 1.4 : 0;
+        [JsonIgnore] public bool HitAbilityBlessActive { get; set; }
+        [JsonIgnore] public bool EvasionBlessActive { get; set; }
 
         [JsonIgnore] public double StrengthBless => CalculateBless(StrengthBlessActive);
         [JsonIgnore] public double ToughnessBless => CalculateBless(ToughnessBlessActive);
@@ -38,20 +35,11 @@ namespace AmoSim2.Player
         [JsonIgnore] public double SpeedBless => CalculateBless(SpeedBlessActive);
         [JsonIgnore] public double InteligenceBless => CalculateBless(InteligenceBlessActive);
         [JsonIgnore] public double WillPowerBless => CalculateBless(WillPowerBlessActive);
-        [JsonIgnore] public double TrafienieBless => CalculateSpecialBless(TrafienieBlessActive);
-        [JsonIgnore] public double UnikiBless => CalculateSpecialBless(UnikiBlessActive);
+        [JsonIgnore] public double HitAbilityBless => CalculateSpecialBless(HitAbilityBlessActive);
+        [JsonIgnore] public double EvasionBless => CalculateSpecialBless(EvasionBlessActive);
 
-        private bool? _vampireBlessActive;
-        [JsonIgnore] public bool VampireBlessActive { get => (_vampireBlessActive ?? false); set { _vampireBlessActive = value; OnPropertyChanged(); } }
 
-        // Properties for other bless types...
-
-        public List<string> Blessings { get; } = new List<string> { "", "Siła", "Wytrzymałość", "Zręczność", "Szybkość", "Inteligencja", "Siła Woli", "Trafienie", "Uniki" };
-
-        public void ResetBlessings()
-        {
-            StrengthBlessActive = ToughnessBlessActive = AgilityBlessActive = SpeedBlessActive = InteligenceBlessActive = WillPowerBlessActive = TrafienieBlessActive = UnikiBlessActive = false;
-        }
+        private const double BlessMultiplier = 6;
 
         private string _selectedBlessing;
         public string SelectedBlessing
@@ -68,7 +56,6 @@ namespace AmoSim2.Player
                 }
             }
         }
-
         private void SelectedBlessingChanged(string selectedBlessing)
         {
             ResetBlessings();
@@ -80,10 +67,50 @@ namespace AmoSim2.Player
                 case "Szybkość": SpeedBlessActive = true; break;
                 case "Inteligencja": InteligenceBlessActive = true; break;
                 case "Siła Woli": WillPowerBlessActive = true; break;
-                case "Trafienie": TrafienieBlessActive = true; break;
-                case "Uniki": UnikiBlessActive = true; break;
+                case "Trafienie": HitAbilityBlessActive = true; break;
+                case "Uniki": EvasionBlessActive = true; break;
             }
         }
+
+        [JsonIgnore]
+        public double Modificator
+        {
+            get
+            {
+                return Race == "Wampir" && VampireBlessActive ? 1.5 :
+                       Race == "Człowiek" && Class == "Paladyn" ? 2.5 :
+                       1;
+            }
+        }
+
+        private bool? _vampireBlessActive;
+        [JsonIgnore] public bool VampireBlessActive { get => (_vampireBlessActive ?? false); set { _vampireBlessActive = value; OnPropertyChanged(); } }
+
+        private double CalculateBless(bool isActive) => isActive ? BlessMultiplier * Level * Modificator : 0;
+        private double CalculateSpecialBless(bool isActive) => isActive ? BlessMultiplier * Level * Modificator / 1.4 : 0;
+        public void ResetBlessings()
+        {
+            StrengthBlessActive =
+            ToughnessBlessActive =
+            AgilityBlessActive =
+            SpeedBlessActive =
+            InteligenceBlessActive =
+            WillPowerBlessActive =
+            HitAbilityBlessActive =
+            EvasionBlessActive = false;
+        }
+
+
+        
+
+        
+
+
+        
+
+        
+
+        
     }
 
 }

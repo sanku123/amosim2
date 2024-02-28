@@ -9,10 +9,28 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
-        public List<string> Robes => new List<String> { "", "Krasnoludzka", "Hobbicka" };
+        public List<string> Robes => new List<String> 
+        {   "", 
+            "Krasnoludzka", 
+            "Hobbicka" 
+        };
+
+        private string _selectedRobe;
+        public string SelectedRobe
+        {
+            get => _selectedRobe;
+            set
+            {
+                if (value != _selectedRobe)
+                {
+                    _selectedRobe = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         [JsonIgnore]
-        public double HobbickaSzata
+        public double HobbyteRobe
         {
             get
             {
@@ -27,8 +45,8 @@ namespace AmoSim2.Player
                 }
             }
         }
-
-        public double KrasnoludzkaSzata
+        [JsonIgnore]
+        public double DwarfRobe
         {
             get
             {
@@ -43,20 +61,5 @@ namespace AmoSim2.Player
                 } 
             }
         }
-
-        private string _selectedRobe;
-
-        public string SelectedRobe
-        {
-            get => _selectedRobe;
-            set
-            {
-                if (value != _selectedRobe)
-                {
-                    _selectedRobe = value;
-                    OnPropertyChanged();
-                }
-            }
-        }    
     }
 }

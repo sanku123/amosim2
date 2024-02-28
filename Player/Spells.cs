@@ -6,106 +6,115 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
+        public List<string> FirstSpellSlot => new List<String>
+        {
+            "",
+            "1.5 x Siła Woli",
+            "1.1 x Siła Woli 1.4 x Szybkość"
+        };
+
+        public List<string> SecondSpellSlot => new List<String>
+        {
+            "",
+            "1.5 x Inteligencja",
+            "1.4 x Inteligencja 1.1 x Szybkość"
+        };
+
         [JsonIgnore]
-        public double CzarDMG { get; set; }
+        public double SpellDamage { get; set; }
 
         [JsonIgnore]
-        public double CzarDEF { get; set; }
+        public double SpellDefence { get; set; }
 
         [JsonIgnore]
-        public double CzarSpeed_1_1 { get; set; }
+        public double SpellSpeed_1_1 { get; set; }
 
         [JsonIgnore]
-        public double CzarSpeed_1_4 { get; set; }
+        public double SpellSpeed_1_4 { get; set; }
 
-        public List<string> Czary1 => new List<String> { "", "1.5 x Siła Woli", "1.1 x Siła Woli 1.4 x Szybkość" };
 
-        public List<string> Czary2 => new List<String> { "", "1.5 x Inteligencja", "1.4 x Inteligencja 1.1 x Szybkość" };
-
-        public void ResetSpells1()
+        private string _selectedFirstSpellSlot;
+        public string SelectedFirstSpellSlot
         {
-            CzarDEF = 1;
-            CzarSpeed_1_4 = 0;
-        }
-
-        public void ResetSpells2()
-        {
-            CzarDMG = 1;
-            CzarSpeed_1_1 = 0;
-        }
-
-        private void SelectedCzar1Changed(string selectedCzar1)
-        {
-            ResetSpells1();
-
-            if (selectedCzar1 == "1.5 x Siła Woli")
-            {
-                CzarDEF = 1.5;
-            }
-            else if (selectedCzar1 == "1.1 x Siła Woli 1.4 x Szybkość")
-            {
-                CzarDEF = 1.1;
-                CzarSpeed_1_4 = 0.4;
-            }
-            else if (selectedCzar1 == "")
-            {
-                ResetSpells1();
-            }
-        }
-
-        private void SelectedCzar2Changed(string selectedCzar2)
-        {
-            ResetSpells2();
-
-            if (selectedCzar2 == "1.5 x Inteligencja")
-            {
-                CzarDMG = 1.5;
-            }
-            else if (selectedCzar2 == "1.4 x Inteligencja 1.1 x Szybkość")
-            {
-                CzarDMG = 1.4;
-                CzarSpeed_1_1 = 0.1;
-            }
-            else if (selectedCzar2 == "")
-            {
-                ResetSpells2();
-            }
-        }
-
-        private string _selectedCzar1;
-
-        public string SelectedCzar1
-        {
-            get => _selectedCzar1;
+            get => _selectedFirstSpellSlot;
             set
             {
-                ResetSpells1();
+                ResetFirstSpellSlot();
 
-                if (value != _selectedCzar1)
+                if (value != _selectedFirstSpellSlot)
                 {
-                    _selectedCzar1 = value;
+                    _selectedFirstSpellSlot = value;
                     OnPropertyChanged();
-                    SelectedCzar1Changed(_selectedCzar1);
+                    SelectedSpellFirstSlotChanged(_selectedFirstSpellSlot);
                 }
             }
         }
 
-        private string _selectedCzar2;
-
-        public string SelectedCzar2
+        private string _selectedSecondSpellSlot;
+        public string SelectedSecondSpellSlot
         {
-            get => _selectedCzar2;
+            get => _selectedSecondSpellSlot;
             set
             {
-                ResetSpells2();
+                ResetSecondSpellSlot();
 
-                if (value != _selectedCzar2)
+                if (value != _selectedSecondSpellSlot)
                 {
-                    _selectedCzar2 = value;
+                    _selectedSecondSpellSlot = value;
                     OnPropertyChanged();
-                    SelectedCzar2Changed(_selectedCzar2);
+                    SelectedSecondSpellSlotChanged(_selectedSecondSpellSlot);
                 }
             }
         }
+
+        public void ResetFirstSpellSlot()
+        {
+            SpellDefence = 1;
+            SpellSpeed_1_4 = 0;
+        }
+
+        public void ResetSecondSpellSlot()
+        {
+            SpellDamage = 1;
+            SpellSpeed_1_1 = 0;
+        }
+
+        private void SelectedSpellFirstSlotChanged(string selectedFirstSpellSlot)
+        {
+            ResetFirstSpellSlot();
+
+            if (selectedFirstSpellSlot == "1.5 x Siła Woli")
+            {
+                SpellDefence = 1.5;
+            }
+            else if (selectedFirstSpellSlot == "1.1 x Siła Woli 1.4 x Szybkość")
+            {
+                SpellDefence = 1.1;
+                SpellSpeed_1_4 = 0.4;
+            }
+            else if (selectedFirstSpellSlot == "")
+            {
+                ResetFirstSpellSlot();
+            }
+        }
+
+        private void SelectedSecondSpellSlotChanged(string selectedSecondSpellSlot)
+        {
+            ResetSecondSpellSlot();
+
+            if (selectedSecondSpellSlot == "1.5 x Inteligencja")
+            {
+                SpellDamage = 1.5;
+            }
+            else if (selectedSecondSpellSlot == "1.4 x Inteligencja 1.1 x Szybkość")
+            {
+                SpellDamage = 1.4;
+                SpellSpeed_1_1 = 0.1;
+            }
+            else if (selectedSecondSpellSlot == "")
+            {
+                ResetSecondSpellSlot();
+            }
+        }       
     }
 }
