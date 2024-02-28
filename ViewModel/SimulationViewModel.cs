@@ -34,15 +34,13 @@ namespace AmoSim2.ViewModel
                 {
                     _timeTakenInSeconds = value;
                     OnPropertyChanged(nameof(TimeTakenInSeconds));
-                    UpdateProgressBar(); // Call method to update ProgressBar when time taken changes
+                    UpdateProgressBar(); 
                 }
             }
         }
         private void UpdateProgressBar()
         {
-            // Update the progress directly based on the time taken
-            // Example: assuming the simulation takes 100 seconds
-            double totalSimulationTime = 100; // Adjust according to your scenario
+            double totalSimulationTime = 100; 
             double progressPercentage = Math.Min((TimeTakenInSeconds / totalSimulationTime) * 100, 100);
             ProgressValue = progressPercentage;
         }
@@ -108,13 +106,8 @@ namespace AmoSim2.ViewModel
 
             int iterations = 20000;
 
-            // Reset progress value
             ProgressValue = 0;
-
-            // Capture the start time
             startTime = DateTime.Now;
-
-            // Run simulation in a background worker
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
@@ -124,42 +117,31 @@ namespace AmoSim2.ViewModel
                 for (int i = 0; i < iterations; i++)
                 {
                     BeginFastSimulation();
-
-                    // Report progress
                     double progress = ((double)i / iterations) * 100;
                     worker.ReportProgress((int)progress);
                 }
             };
             worker.ProgressChanged += (sender, e) =>
             {
-                // Update progress bar
                 ReportProgress(e.ProgressPercentage);
             };
             worker.RunWorkerCompleted += (sender, e) =>
             {
-                // Calculate duration after the background worker has completed
                 TimeSpan duration = DateTime.Now - startTime;
 
-                // Convert duration to seconds
                 double seconds = duration.TotalSeconds;
 
-                // Update TimeTakenInSeconds property
                 TimeTakenInSeconds = seconds;
 
-                // Simulation completed, update UI or do any post-processing
-                // Calculate percentages and update UI
                 double winPercentage = (double)WinCount / iterations * 100;
                 double lostPercentage = (double)LostCount / iterations * 100;
                 double drawPercentage = (double)DrawCount / iterations * 100;
 
-                // Update properties
                 WinPercentageText = winPercentage.ToString("0.00") + "%";
                 LostPercentageText = lostPercentage.ToString("0.00") + "%";
                 DrawPercentageText = drawPercentage.ToString("0.00") + "%";
             };
             worker.RunWorkerAsync();
-
-            
         }
 
         private void BeginFastSimulation()
@@ -214,7 +196,6 @@ namespace AmoSim2.ViewModel
                 }
             }
         }
-
 
         private int PerformAttack(int targetHP, Model attacker, Model defender)
         {
