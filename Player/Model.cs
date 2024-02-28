@@ -83,15 +83,78 @@ namespace AmoSim2.Player
                    ? (WillPower * SpellDefence) + BonusAbove200Level(2) + DwarfRobe
                    : Toughness + EQdefence + BarbarianDefence + HumanDefenceFromEQ;
 
-        [JsonIgnore]
-        public double EvasionFull => Class == "Mag" || Class == "Czarnoksiężnik"
-                    ? (0.45 * Speed) + EvasionSkill + EvasionBless + HobbyteRobe + MageEvasion + Level
-                    : Math.Round((0.45 * Speed) + (0.45 * WeaponSpeed) + EQevasion + Level + EvasionSkill + EvasionBless + ThiefEvasion, 2);
+
 
         [JsonIgnore]
-        public double BattleSpeed => Class == "Mag" || Class == "Czarnoksiężnik"
-                    ? Speed * (1 + SpellSpeed_1_4 + SpellSpeed_1_1) + Level
-                    : (BaseSpeed - BonusAbove200Level(2)) * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
+        private double _EvasionFull;
+
+        public double EvasionFull
+        {
+            get
+            {
+                _EvasionFull = CalculateEvasionFull();
+
+                return _EvasionFull;
+            }
+            set
+            {
+                if (_EvasionFull != value)
+                {
+                    _EvasionFull = value;
+                    OnPropertyChanged(nameof(PlayerHitChance));
+                }
+            }
+        }
+
+
+        public double CalculateEvasionFull()
+        {
+            if (Class == "Mag" || Class == "Czarnoksiężnik")
+            {
+                return (0.45 * Speed) + EvasionSkill + EvasionBless + HobbyteRobe + MageEvasion + Level;
+            }
+            else
+            {
+                return Math.Round((0.45 * Speed) + (0.45 * WeaponSpeed) + EQevasion + Level + EvasionSkill + EvasionBless + ThiefEvasion, 2);
+            }
+        }
+
+        [JsonIgnore]
+        private double _BattleSpeed;
+        public double BattleSpeed
+        {
+            get
+            {
+                _BattleSpeed = CalculateBattleSpeed();
+
+                return _BattleSpeed;
+            }
+            set
+            {
+                if (_BattleSpeed != value)
+                {
+                    _BattleSpeed = value;
+                    OnPropertyChanged(nameof(PlayerHitChance));
+                }
+            }
+        }
+
+        public double CalculateBattleSpeed()
+        {
+            if (Class == "Mag" || Class == "Czarnoksiężnik")
+            {
+                return Speed * (1 + SpellSpeed_1_4 + SpellSpeed_1_1) + Level;
+            }
+            else
+            {
+                return (BaseSpeed - BonusAbove200Level(2)) * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
+            }
+        }
+
+        //[JsonIgnore]
+        //public double BattleSpeed => Class == "Mag" || Class == "Czarnoksiężnik"
+        //            ? Speed * (1 + SpellSpeed_1_4 + SpellSpeed_1_1) + Level
+        //            : (BaseSpeed - BonusAbove200Level(2)) * ThiefSpeedBonus + BonusAbove200Level(2) + (SpeedBless * ThiefSpeedBonus) + WeaponSpeed + Level;
 
         [JsonIgnore]
         public bool Archer => new[] { Strength, Agility, Inteligence }.Max() == Agility;
