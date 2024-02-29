@@ -147,6 +147,7 @@
           </Grid>
         </Border>
       </Grid>
-    </StackPanel>
+            <Button Content="Test" Click="Button_Click"/>
+        </StackPanel>
   </Grid>
 </Window>
