@@ -149,8 +149,8 @@ namespace AmoSim2.ViewModel
             var player = PlayerViewModel.Player;
             var enemy = PlayerViewModel.Enemy;
 
-            int playerHealthPoints = (int)player.HP;
-            int enemyHealthPoints = (int)enemy.HP;
+            int playerHealthPoints = (int)player.HP + (int)player.HP_Bonus;
+            int enemyHealthPoints = (int)enemy.HP + (int)enemy.HP_Bonus;
 
             bool playerGoesFirst = player.BattleSpeed > enemy.BattleSpeed;
 

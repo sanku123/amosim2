@@ -11,6 +11,8 @@
           <UniformGrid Columns="2">
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/level_m.png" Label="Level" Text="{Binding Level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <uc:LabelTextBox ImgSource="pack://application:,,,/img/zdrowie.png" Label="HP" Text="{Binding HP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/mana.png" Label="Mana" Text="{Binding MP, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+            <uc:LabelTextBox ImgSource="pack://application:,,,/img/zdrowie.png" Label="Premia HP" Text="{Binding HP_Bonus, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
           </UniformGrid>
         </StackPanel>
       </Grid>

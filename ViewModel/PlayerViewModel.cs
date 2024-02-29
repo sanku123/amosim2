@@ -79,7 +79,6 @@ namespace AmoSim2.Player
                 Class = "",
                 Level = 1,
                 HP = 100,
-                MP = 100,
                 BaseStrength = 4,
                 BaseAgility = 4,
                 BaseInteligence = 4,
