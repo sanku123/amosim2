@@ -34,8 +34,6 @@ namespace AmoSim2.Player
 
         public double HPmax { get; set; }
 
-        public double MP { get; set; }
-
         public double CombatSkill { get; set; }
 
         public double EvasionSkill { get; set; }
@@ -106,7 +104,25 @@ namespace AmoSim2.Player
             }
         }
 
-
+        [JsonIgnore]
+        public double MP
+        {
+            get
+            {
+                if ((Class == "Mag" || Class == "Czarnoksiężnik") && Race == "Elf") return (Inteligence + WillPower) * 3.3;
+                else if ((Class == "Mag" || Class == "Czarnoksiężnik")) return (Inteligence + WillPower) * 3;
+                return 0;
+            }
+        }
+        [JsonIgnore]
+        public double HP_Bonus
+        {
+            get
+            {
+                if (Race == "Krasnolud") return MP * 0.04;
+                return MP * 0.02;
+            }
+        }
         public double CalculateEvasionFull()
         {
             if (Class == "Mag" || Class == "Czarnoksiężnik")
