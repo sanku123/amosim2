@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,8 @@ namespace AmoSim2.Player
         };
 
         public string Race { get; set; }
+
+        private bool? _racialEnemyActive;
+        [JsonIgnore] public bool RacialEnemyActive { get => (_racialEnemyActive ?? false); set { _racialEnemyActive = value; OnPropertyChanged(); } }
     }
 }

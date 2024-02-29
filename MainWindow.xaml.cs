@@ -15,6 +15,13 @@ namespace AmoSim2
         public MainWindow()
         {
             InitializeComponent();
-        }       
+        }
+
+        public PlayerViewModel PlayerViewModel => ServiceLocator.Current.GetInstance<PlayerViewModel>();
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(PlayerViewModel.Player.Attack.ToString());
+        }
     }
 }

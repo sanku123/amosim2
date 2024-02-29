@@ -71,9 +71,9 @@ namespace AmoSim2.Player
         {
             get
             {
-                if (Warrior) return Strength + WeaponDMG + HumanAttackBonus + DwarfAttackBonus;
+                if (Warrior) return (Strength + WeaponDMG + HumanAttackBonus + DwarfAttackBonus) * RacialEnemyBonus;
                 else if (Mage) return Inteligence * SpellDamage;
-                else if (Archer) return ((Agility * 0.8) + BonusAbove200Level(2) + WeaponDMG) * ThiefDamagePenalty;
+                else if (Archer) return (((Agility * 0.8) + BonusAbove200Level(2) + WeaponDMG) * ThiefDamagePenalty) * RacialEnemyBonus;
                 return 0;
             }
         }
@@ -208,6 +208,24 @@ namespace AmoSim2.Player
                 }
             }
         }
+
+        [JsonIgnore]
+        public double RacialEnemyBonus
+        {
+            get
+            {
+                if (Race == "Jaszczuroczłek" && Class == "Łowca" && RacialEnemyActive)
+                {
+                    return 1.2;
+                }
+                else if (Class == "Łowca" && RacialEnemyActive)
+                {
+                    return 1.15;
+                }
+                return 1;
+            }
+        }
+
 
         [JsonIgnore]
         public double BarbarianDefence
