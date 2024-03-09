@@ -233,6 +233,7 @@ namespace AmoSim2.ViewModel
         private int CalculateDamage(Model attacker, Model defender)
         {
             int baseDamage = (int)(attacker.Attack + rnd.Next(1, (int)(5 * attacker.Level)));
+            double warlockDefenceBreak = 0;
 
             int bonusDamage = 0;
             if (attacker.Class == "Łowca" && defender.Race != "Jaszczuroczłek")
@@ -240,7 +241,13 @@ namespace AmoSim2.ViewModel
             else if (attacker.Class == "Czarnoksiężnik")
                 bonusDamage = attacker.WarlockPoisonDamage;
 
-            int calculatedDamage = (int)Math.Max(0, baseDamage * attacker.Critical() * attacker.ThiefDamagePenalty - defender.Defence);
+            if (attacker.Class == "Czarnoksiężnik" && defender.Race == "Krasnolud")
+                warlockDefenceBreak = defender.Defence - (int)(defender.Defence * (1 - (Math.Floor(attacker.Level/50)/100)));
+            else if (attacker.Class == "Czarnoksiężnik")
+                warlockDefenceBreak = defender.Defence - (int)(defender.Defence * (1 - (Math.Floor(attacker.Level/25)/100)));
+
+
+            int calculatedDamage = (int)Math.Max(0, baseDamage * attacker.Critical() * attacker.ThiefDamagePenalty - defender.Defence - warlockDefenceBreak);
             return calculatedDamage + bonusDamage;
         }
     }
