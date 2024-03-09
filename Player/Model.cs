@@ -78,7 +78,7 @@ namespace AmoSim2.Player
 
         [JsonIgnore]
         public double Defence => Class == "Mag" || Class == "Czarnoksiężnik"
-                   ? (WillPower * SpellDefence) + BonusAbove200Level(2) + DwarfRobe
+                   ? (WillPower * SpellDefence) + BonusAbove200Level(2) + DwarfRobe + Toughness
                    : Toughness + EQdefence + BarbarianDefence + HumanDefenceFromEQ;
 
 
