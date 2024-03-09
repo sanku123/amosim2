@@ -158,14 +158,14 @@ namespace AmoSim2.ViewModel
             {
                 if (playerGoesFirst)
                 {
-                    enemyHealthPoints = PerformAttack(enemyHealthPoints, player, enemy);
+                    enemyHealthPoints = PerformPlayerAttack(enemyHealthPoints, player, enemy);
                     if (enemyHealthPoints < 1)
                     {
                         WinCount += 1;
                         return;
                     }
 
-                    playerHealthPoints = PerformAttack(playerHealthPoints, enemy, player);
+                    playerHealthPoints = PerformEnemyAttack(playerHealthPoints, enemy, player);
                     if (playerHealthPoints < 1)
                     {
                         LostCount += 1;
@@ -174,14 +174,14 @@ namespace AmoSim2.ViewModel
                 }
                 else
                 {
-                    playerHealthPoints = PerformAttack(playerHealthPoints, enemy, player);
+                    playerHealthPoints = PerformEnemyAttack(playerHealthPoints, enemy, player);
                     if (playerHealthPoints < 1)
                     {
                         LostCount += 1;
                         return;
                     }
 
-                    enemyHealthPoints = PerformAttack(enemyHealthPoints, player, enemy);
+                    enemyHealthPoints = PerformPlayerAttack(enemyHealthPoints, player, enemy);
                     if (enemyHealthPoints < 1)
                     {
                         WinCount += 1;
@@ -197,23 +197,39 @@ namespace AmoSim2.ViewModel
             }
         }
 
-        private int PerformAttack(int targetHP, Model attacker, Model defender)
+        private int PerformPlayerAttack(int targetHP, Model player, Model enemy)
         {
-            for (int i = 0; i < attacker.PlayerInicjatywa && (targetHP > 0); i++)
+            for (int i = 0; i < player.PlayerInicjatywa && (targetHP > 0); i++)
             {
-                if (attacker.PlayerHitChance < rnd.Next(1, 101))
+                if (player.PlayerHitChance < rnd.Next(1, 101))
                     continue;
 
-                if (defender.BlockChance >= rnd.Next(1, 101))
+                if (enemy.BlockChance >= rnd.Next(1, 101))
                     continue;
 
-                int damage = CalculateDamage(attacker, defender);
+                int damage = CalculateDamage(player, enemy);
                 targetHP -= damage;
             }
 
             return targetHP;
         }
 
+        private int PerformEnemyAttack(int targetHP, Model enemy, Model player)
+        {
+            for (int i = 0; i < enemy.EnemyInicjatywa && (targetHP > 0); i++)
+            {
+                if (enemy.EnemyHitChance < rnd.Next(1, 101))
+                    continue;
+
+                if (player.BlockChance >= rnd.Next(1, 101))
+                    continue;
+
+                int damage = CalculateDamage(enemy, player);
+                targetHP -= damage;
+            }
+
+            return targetHP;
+        }
         private int CalculateDamage(Model attacker, Model defender)
         {
             int baseDamage = (int)(attacker.Attack + rnd.Next(1, (int)(5 * attacker.Level)));
