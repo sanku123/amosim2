@@ -52,7 +52,7 @@ namespace AmoSim2.Player
             {
                 switch (SelectedRobe)
                 {
-                    case "Krasnoludzka" when Race == "Krasnolud":
+                    case "Krasnoludzka" when Race == "Krasnolud" && Class == "Mag":
                         return 4000;
                     case "Krasnoludzka":
                         return 2000;
