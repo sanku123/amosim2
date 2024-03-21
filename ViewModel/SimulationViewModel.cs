@@ -208,6 +208,10 @@ namespace AmoSim2.ViewModel
                     continue;
 
                 int damage = CalculateDamage(player, enemy);
+
+                if (damage > 0 && player.Class == "Czarnoksiężnik" || player.Class == "Mag" && enemy.Race == "Jaszczuroczłek")
+                    damage = (int)(damage * 0.95);
+
                 targetHP -= damage;
             }
 
@@ -225,6 +229,10 @@ namespace AmoSim2.ViewModel
                     continue;
 
                 int damage = CalculateDamage(enemy, player);
+
+                if (damage > 0 && enemy.Class == "Czarnoksiężnik" || enemy.Class == "Mag" && player.Race == "Jaszczuroczłek")
+                    damage = (int)(damage * 0.95);
+
                 targetHP -= damage;
             }
 
@@ -246,8 +254,8 @@ namespace AmoSim2.ViewModel
             else if (attacker.Class == "Czarnoksiężnik")
                 warlockDefenceBreak = defender.Defence - (int)(defender.Defence * (1 - (Math.Floor(attacker.Level/25)/100)));
 
-
             int calculatedDamage = (int)Math.Max(0, baseDamage * attacker.Critical() * attacker.ThiefDamagePenalty - defender.Defence - warlockDefenceBreak);
+
             return calculatedDamage + bonusDamage;
         }
     }

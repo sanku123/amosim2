@@ -269,7 +269,7 @@ namespace AmoSim2.Player
         public double HumanDefenceFromEQ => Race == "Człowiek" ? EQdefence * 0.1 : 0;
 
         [JsonIgnore]
-        public double HumanAttackBonus => Race == "Człowiek" ? WeaponDMG * 0.05 : 0;
+        public double HumanAttackBonus => Race == "Człowiek" && Warrior ? WeaponDMG * 0.05 : 0;
 
         [JsonIgnore]
         public double DwarfAttackBonus => Race == "Krasnolud" && Class == "Wojownik" ? WeaponDMG * 0.5 : 0;
