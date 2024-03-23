@@ -152,6 +152,8 @@ namespace AmoSim2.ViewModel
             int playerHealthPoints = (int)player.HP + (int)player.HP_Bonus;
             int enemyHealthPoints = (int)enemy.HP + (int)enemy.HP_Bonus;
 
+            PlayerViewModel.Player.PlayerHitChance = Math.Max(PlayerViewModel.Player.PlayerHitChance, 2);
+
             bool playerGoesFirst = player.BattleSpeed > enemy.BattleSpeed;
 
             for (int i = 1; i <= 24; i++)
@@ -199,9 +201,10 @@ namespace AmoSim2.ViewModel
 
         private int PerformPlayerAttack(int targetHP, Model player, Model enemy)
         {
+            double hitChance = Math.Max(player.PlayerHitChance, 2);
             for (int i = 0; i < player.PlayerInicjatywa && (targetHP > 0); i++)
             {
-                if (player.PlayerHitChance < rnd.Next(1, 101))
+                if (hitChance < rnd.Next(1, 101))
                     continue;
 
                 if (enemy.BlockChance >= rnd.Next(1, 101))
@@ -220,9 +223,11 @@ namespace AmoSim2.ViewModel
 
         private int PerformEnemyAttack(int targetHP, Model enemy, Model player)
         {
+            double hitChance = Math.Max(enemy.EnemyHitChance, 2);
+
             for (int i = 0; i < enemy.EnemyInicjatywa && (targetHP > 0); i++)
             {
-                if (enemy.EnemyHitChance < rnd.Next(1, 101))
+                if (hitChance < rnd.Next(1, 101))
                     continue;
 
                 if (player.BlockChance >= rnd.Next(1, 101))
