@@ -21,7 +21,7 @@
                 </ProgressBar.BorderBrush>
             </ProgressBar>
 
-            <TextBox Text="{Binding TimeTakenInSeconds}" Width="107" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontSize="16" BorderThickness="0,0,0,0">
+            <TextBox Text="{Binding AverageRounds}" Width="107" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontSize="16" BorderThickness="0,0,0,0">
                 <TextBox.Background>
                     <SolidColorBrush Color="#FF232222" Opacity="1"/>
                 </TextBox.Background>

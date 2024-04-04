@@ -48,6 +48,12 @@ namespace AmoSim2.ViewModel
         {
             ProgressValue = value;
         }
+        private int _averageRounds;
+        public int AverageRounds
+        {
+            get { return _averageRounds; }
+            set { _averageRounds = value; OnPropertyChanged(); }
+        }
 
         private int _winCount;
         public int WinCount
@@ -100,6 +106,7 @@ namespace AmoSim2.ViewModel
 
         private void StartSimulation(object parameter)
         {
+            AverageRounds = 0;
             WinCount = 0;
             LostCount = 0;
             DrawCount = 0;
@@ -120,6 +127,7 @@ namespace AmoSim2.ViewModel
                     double progress = ((double)i / iterations) * 100;
                     worker.ReportProgress((int)progress);
                 }
+                AverageRounds /= iterations;
             };
             worker.ProgressChanged += (sender, e) =>
             {
@@ -158,6 +166,7 @@ namespace AmoSim2.ViewModel
 
             for (int i = 1; i <= 24; i++)
             {
+                AverageRounds++;
                 if (playerGoesFirst)
                 {
                     enemyHealthPoints = PerformPlayerAttack(enemyHealthPoints, player, enemy);
