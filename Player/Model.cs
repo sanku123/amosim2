@@ -55,7 +55,7 @@ namespace AmoSim2.Player
         {
             get
             {
-                double value = CombatSkill + HitAbilityBless + Level + (Vampirism * (Level / 320));
+                double value = CombatSkill + HitAbilityBless + Level + (Vampirism * (Level / 250));
 
                 if (Warrior) return value + (double)Math.Round((0.25 + (Level / 5800)) * Strength, 2);
                 else if (Archer) return value + (double)Math.Round((0.25 + (Level / 1950)) * Agility, 2);
@@ -326,10 +326,10 @@ namespace AmoSim2.Player
         }
 
         [JsonIgnore]
-        public int BonusŁowcy => Class == "Łowca" ? (int)(Level / 2) : 0;
+        public int BonusŁowcy => Class == "Łowca" ? (int)(Level * (2 / 3)) : 0;
 
         [JsonIgnore]
-        public int WarlockPoisonDamage => Class == "Czarnoksiężnik" ? (int)(Level) : 0;
+        public int WarlockPoisonDamage => Class == "Czarnoksiężnik" ? (int)(Level * 1.25) : 0;
 
         [JsonIgnore]
         public double BlockChance

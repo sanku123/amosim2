@@ -263,10 +263,8 @@ namespace AmoSim2.ViewModel
             else if (attacker.Class == "Czarnoksiężnik")
                 bonusDamage = attacker.WarlockPoisonDamage;
 
-            if (attacker.Class == "Czarnoksiężnik" && defender.Race == "Krasnolud")
-                warlockDefenceBreak = defender.Defence - (int)(defender.Defence * (1 - (Math.Floor(attacker.Level/50)/100)));
-            else if (attacker.Class == "Czarnoksiężnik")
-                warlockDefenceBreak = defender.Defence - (int)(defender.Defence * (1 - (Math.Floor(attacker.Level/25)/100)));
+            if (attacker.Class == "Czarnoksiężnik")
+                warlockDefenceBreak = defender.Defence - (int)(defender.Defence * (1 - (Math.Floor(attacker.Level/40)/100)));
 
             int calculatedDamage = (int)Math.Max(0, baseDamage * attacker.Critical() * attacker.ThiefDamagePenalty - defender.Defence - warlockDefenceBreak);
 
