@@ -210,7 +210,7 @@ namespace AmoSim2.ViewModel
 
         private int PerformPlayerAttack(int targetHP, Model player, Model enemy)
         {
-            double hitChance = Math.Max(player.PlayerHitChance, 2);
+            double hitChance = Convert.ToInt32(Math.Max(player.PlayerHitChance, 2));
             for (int i = 0; i < player.PlayerInicjatywa && (targetHP > 0); i++)
             {
                 if (hitChance < rnd.Next(1, 101))
@@ -232,7 +232,7 @@ namespace AmoSim2.ViewModel
 
         private int PerformEnemyAttack(int targetHP, Model enemy, Model player)
         {
-            double hitChance = Math.Max(enemy.EnemyHitChance, 2);
+            double hitChance = Convert.ToInt32(Math.Max(enemy.EnemyHitChance, 2));
 
             for (int i = 0; i < enemy.EnemyInicjatywa && (targetHP > 0); i++)
             {
