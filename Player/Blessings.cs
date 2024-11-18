@@ -7,6 +7,7 @@ namespace AmoSim2.Player
 {
     public partial class Model : ViewModelBase
     {
+        [JsonIgnore]
         public List<string> Blessings { get; } = new List<string>
         {
             "",

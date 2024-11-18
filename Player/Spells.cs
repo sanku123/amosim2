@@ -6,13 +6,14 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
+        [JsonIgnore]
         public List<string> FirstSpellSlot => new List<String>
         {
             "",
             "1.5 x Siła Woli",
             "1.1 x Siła Woli 1.4 x Szybkość"
         };
-
+        [JsonIgnore]
         public List<string> SecondSpellSlot => new List<String>
         {
             "",

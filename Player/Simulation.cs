@@ -9,6 +9,7 @@ namespace AmoSim2.Player
     public partial class Model : ViewModelBase
     {
         private double _playerHitChance;
+        [JsonIgnore]
         public double PlayerHitChance
         {
             get 
@@ -27,6 +28,7 @@ namespace AmoSim2.Player
         }
 
         private double _enemyHitChance;
+        [JsonIgnore]
         public double EnemyHitChance
         {
             get
@@ -52,15 +54,16 @@ namespace AmoSim2.Player
             double val = Math.Round(((Math.Log10(attackerAbility + 200) - Math.Log10(defenderEvasion + 200)) * 500) + 50, 2);
             return Math.Min(val, 98); 
         }
+        [JsonIgnore]
         public double PlayerInicjatywaBase => Math.Round(PlayerViewModel.Player.BattleSpeed / PlayerViewModel.Enemy.BattleSpeed, 3);
-
+        [JsonIgnore]
         public double EnemyInicjatywaBase => Math.Round(PlayerViewModel.Enemy.BattleSpeed / PlayerViewModel.Player.BattleSpeed, 3);
 
 
 
-        [JsonIgnore]
+        
         private double _playerInicjatywa;
-
+        [JsonIgnore]
         public double PlayerInicjatywa
         {
             get
@@ -79,9 +82,9 @@ namespace AmoSim2.Player
             }
         }
 
-        [JsonIgnore]
+   
         private double _enemyInicjatywa;
-
+        [JsonIgnore]
         public double EnemyInicjatywa
         {
             get
