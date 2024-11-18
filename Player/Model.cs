@@ -83,9 +83,9 @@ namespace AmoSim2.Player
 
 
 
-        [JsonIgnore]
+        
         private double _EvasionFull;
-
+        [JsonIgnore]
         public double EvasionFull
         {
             get
@@ -135,8 +135,10 @@ namespace AmoSim2.Player
             }
         }
 
-        [JsonIgnore]
+        
         private double _BattleSpeed;
+
+        [JsonIgnore]
         public double BattleSpeed
         {
             get

@@ -5,6 +5,7 @@ namespace AmoSim2.Player
 {
     public partial class Model
     {
+        [JsonIgnore]
         public List<string> Staffs => new List<string>
         {
             "",
